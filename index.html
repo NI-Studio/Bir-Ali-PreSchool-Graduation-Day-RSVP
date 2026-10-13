@@ -232,14 +232,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   transform: rotate(-1.5deg); 
 }
 
-.deco--tri { width: 55px; }
-.deco--tri-a { color: var(--turq); left: 10%; top: 12%; transform: rotate(14deg); }
-.deco--tri-b { color: var(--magenta); right: 10%; bottom: 22%; --r: -18deg; transform: rotate(-18deg); z-index: 1; }
-
-.deco--star-outline { width: 48px; }
-.deco--star-a { color: var(--yellow); right: 12%; top: 10%; --r: 12deg; transform: rotate(12deg); }
-.deco--star-b { color: var(--turq); left: 12%; bottom: 18%; --r: -10deg; transform: rotate(-10deg); z-index: 1; }
-
 .countdown { background: #0c0c0c; border-block: 4px solid var(--purple); }
 .countdown__boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 2vw, 1.5rem); max-width: 860px; margin: 2rem auto 0; }
 .crt-box {
@@ -328,11 +320,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   .hero__inner { margin-top: 3.5rem; }
   .hero__panel > div { grid-template-columns: 1fr; gap: 0; }
   .hero__panel { padding: 1.25rem 1rem; }
-  
-  .deco--tri-a { left: 4%; top: 8%; width: 38px; }
-  .deco--tri-b { right: 4%; bottom: 15%; width: 38px; }
-  .deco--star-a { right: 4%; top: 8%; width: 34px; }
-  .deco--star-b { left: 4%; bottom: 15%; width: 34px; }
 
   .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer__inner { flex-direction: column; gap: 1rem; }
@@ -419,12 +406,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="i-tri" viewBox="0 0 100 90">
-      <path d="M50 6 L94 84 H6 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-star-outline" viewBox="0 0 100 100">
-      <path d="M50 6 L62 38 L96 40 L69 61 L79 94 L50 75 L21 94 L31 61 L4 40 L38 38 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
-    </symbol>
     <symbol id="i-cap" viewBox="0 0 120 100">
       <path d="M60 14 L116 40 L60 66 L4 40 Z" fill="#8B5CF6" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
       <path d="M28 54 V76 Q60 96 92 76 V54 L60 68 Z" fill="#6d3fe0" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
@@ -454,11 +435,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 <header class="hero" id="top">
   <div class="hero__checker" aria-hidden="true"></div>
 
-  <svg class="deco deco--tri deco--tri-a float" aria-hidden="true"><use href="#i-tri"/></svg>
-  <svg class="deco deco--tri deco--tri-b float float--slow" aria-hidden="true"><use href="#i-tri"/></svg>
-  <svg class="deco deco--star-outline deco--star-a float float--slow" aria-hidden="true"><use href="#i-star-outline"/></svg>
-  <svg class="deco deco--star-outline deco--star-b float" aria-hidden="true"><use href="#i-star-outline"/></svg>
-
   <div class="hero__inner">
     <p class="hero__kicker">YOU'RE INVITED TO</p>
 
@@ -486,8 +462,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 <!-- ============ SECTION 3: COUNTDOWN ============ -->
 <section class="countdown" id="countdown" aria-labelledby="countdown-title">
   <div class="grid-bg" aria-hidden="true"></div>
-  <svg class="deco deco--tri float" aria-hidden="true" style="top:15%; left:3%; color:var(--turq);"><use href="#i-tri"/></svg>
-  <svg class="deco deco--star-outline float float--slow" aria-hidden="true" style="bottom:12%; right:3%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
 
   <div class="wrap">
     <h2 id="countdown-title" class="h-display h-display--yellow">THE BIG DAY COUNTDOWN</h2>
@@ -505,9 +479,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <!-- ============ SECTION 4: GRADUATION CELEBRATION ============ -->
 <section class="celebrate" id="celebrate" aria-labelledby="celebrate-title">
-  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="top:20%; left:2%;"><use href="#i-tri"/></svg>
-  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:15%; right:3%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
-
   <div class="wrap">
     <h2 id="celebrate-title" class="h-display h-display--magenta">SMALL STEPS, <span class="brush brush--turq">BIG DREAMS</span></h2>
     <p class="lead">Celebrating little milestones, wonderful memories, and the exciting adventures that lie ahead.</p>
@@ -535,8 +506,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 <!-- ============ SECTION 5: EVENT DETAILS ============ -->
 <section class="details" id="details" aria-labelledby="details-title">
   <div class="grid-bg" aria-hidden="true"></div>
-  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:10%; left:3%; color:var(--yellow); width:45px;"><use href="#i-star-outline"/></svg>
-  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="bottom:12%; right:3%; color:var(--turq);"><use href="#i-tri"/></svg>
 
   <div class="wrap">
     <h2 id="details-title" class="h-display h-display--yellow">THE DETAILS</h2>
@@ -576,9 +545,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <!-- ============ SECTION 6: RSVP (GOOGLE FORM) ============ -->
 <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
-  <svg class="deco deco--tri float" aria-hidden="true" style="bottom:10%; left:3%; color:var(--yellow);"><use href="#i-tri"/></svg>
-  <svg class="deco deco--star-outline float float--slow" aria-hidden="true" style="top:10%; right:3%; color:var(--turq); width:50px;"><use href="#i-star-outline"/></svg>
-
   <div class="wrap rsvp__layout">
     <div class="rsvp__intro">
       <h2 id="rsvp-title" class="h-display h-display--magenta">RSVP</h2>
@@ -603,8 +569,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 <!-- ============ SECTION 7: PHOTO GALLERY ============ -->
 <section class="gallery" id="gallery" aria-labelledby="gallery-title">
   <div class="grid-bg" aria-hidden="true"></div>
-  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:12%; left:2%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
-  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="bottom:10%; right:2%; color:var(--yellow);"><use href="#i-tri"/></svg>
 
   <div class="wrap">
     <h2 id="gallery-title" class="h-display h-display--yellow">LITTLE MOMENTS, <span class="brush">BIG MEMORIES</span></h2>
