@@ -10,10 +10,10 @@
   <!-- Favicon / Logo Tab Browser -->
   <link rel="icon" type="image/png" href="logo.png">
 
-  <!-- Google Fonts: Anton (condensed display), Permanent Marker (brush), Space Mono + VT323 (retro mono), Caveat (handwritten captions) -->
+  <!-- Google Fonts: Anton (condensed display), Space Mono + VT323 (retro mono), Caveat (handwritten captions) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Permanent+Marker&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
 /* =====================================================
    BIR ALI PRESCHOOL GRADUATION DAY — Retro 90s VHS invite
@@ -29,7 +29,7 @@
   --paper: #F5F0E8;
 
   --f-display: "Anton", "Impact", "Arial Narrow", sans-serif;
-  --f-brush: "Permanent Marker", "Comic Sans MS", cursive;
+  --f-brush: "Anton", "Impact", "Arial Narrow", sans-serif; /* Penukaran font ke Anton */
   --f-mono: "Space Mono", "Courier New", monospace;
   --f-digit: "VT323", "Courier New", monospace;
   --f-hand: "Caveat", "Comic Sans MS", cursive;
@@ -89,7 +89,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 }
 .h-display--yellow { color: var(--yellow); text-shadow: 3px 3px 0 var(--magenta), 0 0 24px rgba(248,243,43,.35); }
 .h-display--magenta { color: var(--magenta); text-shadow: 3px 3px 0 var(--turq), 0 0 28px rgba(255,62,157,.5); }
-.brush { font-family: var(--f-brush); text-transform: none; letter-spacing: 0; color: var(--magenta); text-shadow: 2px 2px 0 var(--black), 0 0 18px rgba(255,62,157,.6); }
+.brush { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--magenta); text-shadow: 2px 2px 0 var(--black), 0 0 18px rgba(255,62,157,.6); }
 .brush--turq { color: var(--turq); text-shadow: 2px 2px 0 var(--black), 0 0 18px rgba(54,224,192,.6); }
 .lead { max-width: 56ch; margin: 0 auto 3rem; text-align: center; font-size: 1.1rem; }
 .lead--left { text-align: left; margin: 0 0 1.5rem; }
@@ -187,8 +187,9 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .hero__tag { 
   position: relative;
   z-index: 3;
-  font-family: var(--f-brush); 
+  font-family: var(--f-display); 
   font-size: clamp(1.2rem, 3.8vw, 1.9rem); 
+  letter-spacing: .06em;
   color: var(--magenta); 
   text-shadow: 0 0 14px rgba(255,62,157,.7); 
   margin-bottom: 2rem; 
@@ -266,7 +267,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .rsvp { background: radial-gradient(ellipse at 15% 30%, rgba(255,62,157,.2), transparent 55%), var(--black); }
 .rsvp__layout { display: grid; grid-template-columns: 5fr 7fr; gap: 2.5rem; align-items: start; }
 .rsvp .h-display { text-align: left; font-size: clamp(3rem, 9vw, 6.5rem); }
-.rsvp__sub { font-family: var(--f-brush); font-size: clamp(1.2rem, 2.8vw, 1.8rem); color: var(--turq); margin-bottom: 1rem; }
+.rsvp__sub { font-family: var(--f-display); font-size: clamp(1.2rem, 2.8vw, 1.8rem); letter-spacing: .05em; color: var(--turq); margin-bottom: 1rem; }
 
 /* ---------- 10. Gallery ---------- */
 .gallery { background: #0c0c0c; border-top: 4px solid var(--magenta); }
@@ -648,6 +649,8 @@ const CONFIG = {
     { src: "", caption: "Art time!",           alt: "Placeholder photo: art time", color: "#F8F32B" },
     { src: "", caption: "Best friends",        alt: "Placeholder photo: classmates being friends", color: "#8B5CF6" },
     { src: "", caption: "Story corner",        alt: "Placeholder photo: story corner", color: "#36E0C0" },
+    { src: "", caption: "Classroom fun",       alt: "Placeholder photo: classroom fun", color: "#F8F32B" },
+    { src: "", caption: "Playtime smiles",     alt: "Placeholder photo: playtime smiles", color: "#8B5CF6" },
     { src: "", caption: "Ready to graduate!",  alt: "Placeholder photo: ready to graduate", color: "#FF3E9D" }
   ]
 };
