@@ -7,19 +7,12 @@
   <meta name="description" content="You're invited to the Bir Ali PreSchool Graduation Day. A little graduate, a big new adventure!">
   <meta name="theme-color" content="#080808">
 
-  <!-- Favicon / Logo Tab Browser -->
   <link rel="icon" type="image/png" href="logo.png">
 
-  <!-- Google Fonts: Anton (condensed display), Space Mono + VT323 (retro mono), Caveat (handwritten captions) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
-/* =====================================================
-   BIR ALI PRESCHOOL GRADUATION DAY — Retro 90s VHS invite
-   ===================================================== */
-
-/* ---------- 1. Design tokens ---------- */
 :root {
   --black: #080808;
   --magenta: #FF3E9D;
@@ -29,16 +22,14 @@
   --paper: #F5F0E8;
 
   --f-display: "Anton", "Impact", "Arial Narrow", sans-serif;
-  --f-brush: "Anton", "Impact", "Arial Narrow", sans-serif; /* Penukaran font ke Anton */
+  --f-brush: "Anton", "Impact", "Arial Narrow", sans-serif;
   --f-mono: "Space Mono", "Courier New", monospace;
   --f-digit: "VT323", "Courier New", monospace;
   --f-hand: "Caveat", "Comic Sans MS", cursive;
 
-  /* Film grain (SVG noise as data URI) */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- 2. Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
@@ -50,7 +41,10 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
-/* Global film grain + faint VHS scanlines */
+body.is-locked {
+  overflow: hidden;
+}
+
 body::before {
   content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
   background-image: var(--grain);
@@ -71,7 +65,6 @@ h1, h2, h3, p { margin: 0; }
 .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; position: relative; z-index: 2; }
 section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
 
-/* Neon retro grid backdrop */
 .grid-bg {
   position: absolute; inset: 0; z-index: 0; opacity: .35;
   background:
@@ -81,7 +74,54 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
           mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
 }
 
-/* ---------- 3. Typography helpers ---------- */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: radial-gradient(ellipse at center, #1b0a2a 0%, #050505 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+.welcome-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.welcome-card {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  padding: clamp(2rem, 6vw, 3.5rem) 1.5rem;
+  background: rgba(8,8,8,.92);
+  border: 3px solid var(--yellow);
+  box-shadow: 0 0 25px rgba(248,243,43,.4), inset 0 0 20px rgba(248,243,43,.1);
+  position: relative;
+}
+.welcome-card__sub {
+  font-family: var(--f-mono);
+  font-size: clamp(.8rem, 2vw, 1rem);
+  color: var(--turq);
+  letter-spacing: .25em;
+  font-weight: 700;
+  margin-bottom: .75rem;
+}
+.welcome-card__title {
+  font-family: var(--f-display);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: .95;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--magenta);
+  margin-bottom: 1.25rem;
+}
+.welcome-card__desc {
+  font-size: clamp(.95rem, 2.5vw, 1.1rem);
+  margin-bottom: 2rem;
+  color: var(--paper);
+}
+
 .h-display {
   font-family: var(--f-display); font-weight: 400;
   font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1; letter-spacing: .02em;
@@ -94,7 +134,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .lead { max-width: 56ch; margin: 0 auto 3rem; text-align: center; font-size: 1.1rem; }
 .lead--left { text-align: left; margin: 0 0 1.5rem; }
 
-/* ---------- 4. Reusable components ---------- */
 .panel {
   position: relative; padding: 1.5rem 1.5rem 1.4rem;
   background: rgba(8,8,8,.85);
@@ -116,7 +155,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .sticker--pink { background: var(--magenta); }
 .sticker--turq { background: var(--turq); }
 
-/* Buttons with retro "press" hover */
 .btn {
   display: inline-block; cursor: pointer; text-decoration: none; text-align: center;
   font-family: var(--f-display); font-size: 1.3rem; letter-spacing: .08em;
@@ -132,7 +170,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .btn--turq { background: var(--turq); margin-top: 1.25rem; }
 .btn[aria-disabled="true"], .btn:disabled { opacity: .5; cursor: not-allowed; filter: grayscale(.6); transform: none; box-shadow: 5px 5px 0 var(--paper); }
 
-/* Decorations */
 .deco { position: absolute; z-index: 1; pointer-events: none; }
 .float { animation: bob 5s ease-in-out infinite; }
 .float--slow { animation-duration: 8s; animation-delay: -2s; }
@@ -143,7 +180,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   background: conic-gradient(var(--paper) 25%, var(--black) 0 50%, var(--paper) 0 75%, var(--black) 0) 0 0 / 28px 28px;
 }
 
-/* ---------- 5. Hero ---------- */
 .hero {
   position: relative; overflow: hidden;
   padding: 0 0 clamp(3rem, 8vw, 6rem);
@@ -196,17 +232,14 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   transform: rotate(-1.5deg); 
 }
 
-/* SVG Positioning optimized for all screens */
-.deco--cassette { width: clamp(80px, 15vw, 190px); left: 2%; top: 4%; --r: -12deg; transform: rotate(-12deg); }
-.deco--crt { width: clamp(70px, 13vw, 170px); right: 2%; top: 4%; --r: 8deg; transform: rotate(8deg); }
-.deco--smiley { width: clamp(50px, 8vw, 100px); left: 3%; bottom: 6%; z-index: 1; }
-.deco--floppy { width: clamp(50px, 7vw, 95px); right: 3%; bottom: 8%; --r: -10deg; transform: rotate(-10deg); z-index: 1; }
-.deco--star { width: clamp(35px, 5vw, 75px); right: 18%; top: 2%; }
-.deco--tri { width: 60px; }
-.deco--tri-a { color: var(--turq); left: 20%; top: 5%; transform: rotate(14deg); }
-.deco--tri-b { color: var(--magenta); right: 18%; bottom: 25%; --r: -18deg; transform: rotate(-18deg); z-index: 1; }
+.deco--tri { width: 55px; }
+.deco--tri-a { color: var(--turq); left: 10%; top: 12%; transform: rotate(14deg); }
+.deco--tri-b { color: var(--magenta); right: 10%; bottom: 22%; --r: -18deg; transform: rotate(-18deg); z-index: 1; }
 
-/* ---------- 6. Countdown ---------- */
+.deco--star-outline { width: 48px; }
+.deco--star-a { color: var(--yellow); right: 12%; top: 10%; --r: 12deg; transform: rotate(12deg); }
+.deco--star-b { color: var(--turq); left: 12%; bottom: 18%; --r: -10deg; transform: rotate(-10deg); z-index: 1; }
+
 .countdown { background: #0c0c0c; border-block: 4px solid var(--purple); }
 .countdown__boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 2vw, 1.5rem); max-width: 860px; margin: 2rem auto 0; }
 .crt-box {
@@ -229,11 +262,8 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .countdown__msg { text-align: center; margin-top: 2rem; font-family: var(--f-display); font-size: clamp(1.6rem, 5vw, 3.2rem); color: var(--turq); text-shadow: 3px 3px 0 var(--magenta); }
 .countdown.is-done .countdown__boxes, .countdown.is-pending .countdown__boxes { display: none; }
 
-/* ---------- 7. Celebration ---------- */
 .celebrate { background: linear-gradient(180deg, #120a1f, var(--black)); }
 .celebrate::before { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: .08; }
-.deco--cap-l { width: clamp(60px, 9vw, 120px); left: 3%; top: 6%; --r: -14deg; transform: rotate(-14deg); }
-.deco--star-r { width: clamp(40px, 6vw, 80px); right: 4%; top: 8%; }
 
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; }
 .card {
@@ -252,7 +282,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .card h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.7rem; line-height: 1.1; letter-spacing: .03em; }
 .card .sticker { top: auto; bottom: -.9rem; left: auto; right: 1rem; }
 
-/* ---------- 8. Details ---------- */
 .details { background: #0b0b0b; }
 .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.25rem 1.75rem; margin-top: 2.5rem; }
 .info { padding-top: 2rem; }
@@ -263,13 +292,11 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .info__sub { margin-top: .5rem; opacity: .9; overflow-wrap: anywhere; }
 .info__sub b { color: var(--yellow); }
 
-/* ---------- 9. RSVP ---------- */
 .rsvp { background: radial-gradient(ellipse at 15% 30%, rgba(255,62,157,.2), transparent 55%), var(--black); }
 .rsvp__layout { display: grid; grid-template-columns: 5fr 7fr; gap: 2.5rem; align-items: start; }
 .rsvp .h-display { text-align: left; font-size: clamp(3rem, 9vw, 6.5rem); }
 .rsvp__sub { font-family: var(--f-display); font-size: clamp(1.2rem, 2.8vw, 1.8rem); letter-spacing: .05em; color: var(--turq); margin-bottom: 1rem; }
 
-/* ---------- 10. Gallery ---------- */
 .gallery { background: #0c0c0c; border-top: 4px solid var(--magenta); }
 .polaroids { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem 2rem; margin-top: 3rem; padding-inline: .5rem; }
 .polaroid { margin: 0; background: var(--paper); color: var(--black); padding: .8rem .8rem 0; box-shadow: 0 10px 24px rgba(0,0,0,.6); transform: rotate(var(--tilt, -2deg)); transition: transform .3s, box-shadow .3s; position: relative; }
@@ -279,48 +306,34 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .polaroid figcaption { font-family: var(--f-hand); font-size: 1.6rem; line-height: 1; text-align: center; padding: .9rem .25rem 1rem; }
 .polaroid::before { content: ""; position: absolute; top: -12px; left: 50%; width: 70px; height: 22px; transform: translateX(-50%) rotate(-3deg); background: rgba(54,224,192,.75); }
 
-/* ---------- 11. Footer ---------- */
 .footer { background: var(--black); padding-bottom: 5rem; position: relative; overflow: hidden; }
 .footer__inner { display: flex; align-items: center; justify-content: center; gap: 2rem; text-align: center; padding-top: 2.5rem; }
-.footer__smiley { width: 70px; height: 70px; flex: none; }
 .footer__thanks { font-family: var(--f-display); font-size: clamp(1.2rem, 3.4vw, 2.1rem); color: var(--yellow); letter-spacing: .04em; }
 .footer__event { color: var(--turq); font-weight: 700; letter-spacing: .12em; margin: .35rem 0; font-size: .85rem; }
 .footer__cheers { font-size: clamp(1.1rem, 2.8vw, 1.6rem); }
-.footer__scribble { width: 110px; height: 22px; color: var(--magenta); flex: none; }
 
-/* ---------- 12. Scroll reveal (single gentle effect) ---------- */
 .reveal { opacity: 0; translate: 0 24px; transition: opacity .6s ease, translate .6s ease; }
 .reveal.is-visible { opacity: 1; translate: 0 0; }
 
-/* ---------- 13. Responsive Improvements ---------- */
 @media (max-width: 960px) {
-  .deco--cassette { left: 1%; top: 2%; opacity: .85; } 
-  .deco--crt { right: 1%; top: 2%; opacity: .85; }
-  .deco--tri-a, .deco--star { display: none; }
   .rsvp__layout { grid-template-columns: 1fr; }
   .cards { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
-  .footer__scribble { display: none; }
 }
 
 @media (max-width: 640px) {
-  /* Prevent horizontal scroll and adjust overall padding */
   body { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
   section { padding: 2.5rem 0; }
   .wrap { width: calc(100% - 1.5rem); }
 
-  /* Hero Spacing & Layout Fixes */
-  .hero__inner { margin-top: 5rem; }
+  .hero__inner { margin-top: 3.5rem; }
   .hero__panel > div { grid-template-columns: 1fr; gap: 0; }
   .hero__panel { padding: 1.25rem 1rem; }
   
-  /* SVG Adjustments for Mobile Screens to eliminate overlap */
-  .deco--cassette { width: 65px; left: 10px; top: 15px; }
-  .deco--crt { width: 55px; right: 10px; top: 15px; }
-  .deco--smiley { width: 42px; left: 10px; bottom: 85px; }
-  .deco--floppy { width: 42px; right: 10px; bottom: 85px; }
-  .deco--tri-b { width: 45px; right: 15px; bottom: 180px; }
+  .deco--tri-a { left: 4%; top: 8%; width: 38px; }
+  .deco--tri-b { right: 4%; bottom: 15%; width: 38px; }
+  .deco--star-a { right: 4%; top: 8%; width: 34px; }
+  .deco--star-b { left: 4%; bottom: 15%; width: 34px; }
 
-  /* Typography & Component Scale */
   .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer__inner { flex-direction: column; gap: 1rem; }
   .btn { font-size: 1.15rem; padding: .75rem 1.25rem; width: 100%; }
@@ -339,7 +352,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   .polaroid figcaption { font-size: 1.15rem; padding: .5rem 0 .6rem; }
 }
 
-/* Music & Action Dock Bar */
 .dock { 
   position: fixed; 
   z-index: 95; 
@@ -372,8 +384,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 }
 .dock__music svg { width: 20px; height: 20px; }
 .dock__music.is-on { background: var(--magenta); color: var(--black); border-color: var(--black); box-shadow: 3px 3px 0 var(--paper); }
-.dock__music:not(.is-on) { animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(54,224,192,.4); } 50% { box-shadow: 0 0 20px rgba(54,224,192,.95); } }
 .dock__rsvp { 
   display: none; 
   flex: 1; 
@@ -388,7 +398,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   .dock.is-rsvp .dock__rsvp { display: none; }
 }
 
-/* ---------- 14. Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -396,15 +405,25 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 }
   </style>
 </head>
-<body>
+<body class="is-locked">
+
+<!-- ============ SECTION 1: WELCOME OVERLAY SCREEN ============ -->
+<div class="welcome-screen" id="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+  <div class="welcome-card">
+    <p class="welcome-card__sub">SPECIAL INVITATION</p>
+    <h1 class="welcome-card__title" id="welcome-title">BIR ALI PRESCHOOL</h1>
+    <p class="welcome-card__desc">You're cordially invited to celebrate our little graduates' big milestone!</p>
+    <button type="button" class="btn btn--yellow" id="open-btn" style="width:100%;">OPEN INVITATION</button>
+  </div>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="i-smiley" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="46" fill="#F8F32B" stroke="#080808" stroke-width="5"/>
-      <ellipse cx="35" cy="38" rx="6" ry="10" fill="#080808"/>
-      <ellipse cx="65" cy="38" rx="6" ry="10" fill="#080808"/>
-      <path d="M24 60 Q50 90 76 60" fill="none" stroke="#080808" stroke-width="7" stroke-linecap="round"/>
+    <symbol id="i-tri" viewBox="0 0 100 90">
+      <path d="M50 6 L94 84 H6 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-star-outline" viewBox="0 0 100 100">
+      <path d="M50 6 L62 38 L96 40 L69 61 L79 94 L50 75 L21 94 L31 61 L4 40 L38 38 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
     </symbol>
     <symbol id="i-cap" viewBox="0 0 120 100">
       <path d="M60 14 L116 40 L60 66 L4 40 Z" fill="#8B5CF6" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
@@ -412,37 +431,14 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
       <path d="M108 44 V74" stroke="#F8F32B" stroke-width="4" stroke-linecap="round"/>
       <circle cx="108" cy="80" r="6" fill="#F8F32B" stroke="#080808" stroke-width="3"/>
     </symbol>
-    <symbol id="i-cassette" viewBox="0 0 160 100">
-      <rect x="3" y="3" width="154" height="94" rx="8" fill="#F5F0E8" stroke="#080808" stroke-width="4"/>
-      <rect x="14" y="12" width="132" height="42" rx="4" fill="#FF3E9D" stroke="#080808" stroke-width="3"/>
-      <circle cx="52" cy="33" r="13" fill="#080808"/><circle cx="108" cy="33" r="13" fill="#080808"/>
-      <circle cx="52" cy="33" r="5" fill="#F5F0E8"/><circle cx="108" cy="33" r="5" fill="#F5F0E8"/>
-      <path d="M26 74 H134 L124 94 H36 Z" fill="#36E0C0" stroke="#080808" stroke-width="3"/>
-      <circle cx="46" cy="84" r="3.5" fill="#080808"/><circle cx="114" cy="84" r="3.5" fill="#080808"/>
-    </symbol>
-    <symbol id="i-crt" viewBox="0 0 140 120">
-      <rect x="4" y="6" width="132" height="96" rx="14" fill="#F5F0E8" stroke="#080808" stroke-width="4"/>
-      <rect x="16" y="18" width="84" height="70" rx="12" fill="#36E0C0" stroke="#080808" stroke-width="4"/>
-      <path d="M26 66 L46 40 L62 58 L76 46 L92 70" fill="none" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
-      <circle cx="118" cy="38" r="8" fill="#FF3E9D" stroke="#080808" stroke-width="3"/>
-      <circle cx="118" cy="64" r="8" fill="#F8F32B" stroke="#080808" stroke-width="3"/>
-      <path d="M44 102 L36 116 M96 102 L104 116" stroke="#080808" stroke-width="5" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-floppy" viewBox="0 0 100 100">
-      <path d="M6 6 H78 L94 22 V94 H6 Z" fill="#8B5CF6" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
-      <rect x="24" y="6" width="44" height="30" fill="#F5F0E8" stroke="#080808" stroke-width="3"/>
-      <rect x="54" y="10" width="8" height="20" fill="#080808"/>
-      <rect x="18" y="52" width="64" height="42" fill="#F5F0E8" stroke="#080808" stroke-width="3"/>
-      <path d="M26 66 H74 M26 78 H62" stroke="#FF3E9D" stroke-width="4" stroke-linecap="round"/>
-    </symbol>
     <symbol id="i-star" viewBox="0 0 100 100">
       <path d="M50 6 L62 38 L96 40 L69 61 L79 94 L50 75 L21 94 L31 61 L4 40 L38 38 Z" fill="#F8F32B" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
     </symbol>
-    <symbol id="i-tri" viewBox="0 0 100 90">
-      <path d="M50 6 L94 84 H6 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-squiggle" viewBox="0 0 200 40">
-      <path d="M4 20 Q24 -2 44 20 T84 20 T124 20 T164 20 T196 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    <symbol id="i-smiley" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="#F8F32B" stroke="#080808" stroke-width="5"/>
+      <ellipse cx="35" cy="38" rx="6" ry="10" fill="#080808"/>
+      <ellipse cx="65" cy="38" rx="6" ry="10" fill="#080808"/>
+      <path d="M24 60 Q50 90 76 60" fill="none" stroke="#080808" stroke-width="7" stroke-linecap="round"/>
     </symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" fill="currentColor"/></symbol>
     <symbol id="i-cal" viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M3 8h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
@@ -454,17 +450,14 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <a class="skip-link" href="#details">Skip to the details</a>
 
-<!-- ============ SECTION 1: HERO / INVITATION ============ -->
+<!-- ============ SECTION 2: HERO / INVITATION ============ -->
 <header class="hero" id="top">
   <div class="hero__checker" aria-hidden="true"></div>
 
-  <svg class="deco deco--cassette float" aria-hidden="true"><use href="#i-cassette"/></svg>
-  <svg class="deco deco--crt float float--slow" aria-hidden="true"><use href="#i-crt"/></svg>
-  <svg class="deco deco--smiley float" aria-hidden="true"><use href="#i-smiley"/></svg>
-  <svg class="deco deco--tri deco--tri-a" aria-hidden="true"><use href="#i-tri"/></svg>
+  <svg class="deco deco--tri deco--tri-a float" aria-hidden="true"><use href="#i-tri"/></svg>
   <svg class="deco deco--tri deco--tri-b float float--slow" aria-hidden="true"><use href="#i-tri"/></svg>
-  <svg class="deco deco--floppy float" aria-hidden="true"><use href="#i-floppy"/></svg>
-  <svg class="deco deco--star float float--slow" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="deco deco--star-outline deco--star-a float float--slow" aria-hidden="true"><use href="#i-star-outline"/></svg>
+  <svg class="deco deco--star-outline deco--star-b float" aria-hidden="true"><use href="#i-star-outline"/></svg>
 
   <div class="hero__inner">
     <p class="hero__kicker">YOU'RE INVITED TO</p>
@@ -490,9 +483,12 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <main>
 
-<!-- ============ SECTION 2: COUNTDOWN ============ -->
+<!-- ============ SECTION 3: COUNTDOWN ============ -->
 <section class="countdown" id="countdown" aria-labelledby="countdown-title">
   <div class="grid-bg" aria-hidden="true"></div>
+  <svg class="deco deco--tri float" aria-hidden="true" style="top:15%; left:3%; color:var(--turq);"><use href="#i-tri"/></svg>
+  <svg class="deco deco--star-outline float float--slow" aria-hidden="true" style="bottom:12%; right:3%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
+
   <div class="wrap">
     <h2 id="countdown-title" class="h-display h-display--yellow">THE BIG DAY COUNTDOWN</h2>
 
@@ -507,10 +503,11 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   </div>
 </section>
 
-<!-- ============ SECTION 3: GRADUATION CELEBRATION ============ -->
+<!-- ============ SECTION 4: GRADUATION CELEBRATION ============ -->
 <section class="celebrate" id="celebrate" aria-labelledby="celebrate-title">
-  <svg class="deco deco--cap-l float" aria-hidden="true"><use href="#i-cap"/></svg>
-  <svg class="deco deco--star-r float float--slow" aria-hidden="true"><use href="#i-star"/></svg>
+  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="top:20%; left:2%;"><use href="#i-tri"/></svg>
+  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:15%; right:3%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
+
   <div class="wrap">
     <h2 id="celebrate-title" class="h-display h-display--magenta">SMALL STEPS, <span class="brush brush--turq">BIG DREAMS</span></h2>
     <p class="lead">Celebrating little milestones, wonderful memories, and the exciting adventures that lie ahead.</p>
@@ -535,9 +532,12 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   </div>
 </section>
 
-<!-- ============ SECTION 4: EVENT DETAILS ============ -->
+<!-- ============ SECTION 5: EVENT DETAILS ============ -->
 <section class="details" id="details" aria-labelledby="details-title">
   <div class="grid-bg" aria-hidden="true"></div>
+  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:10%; left:3%; color:var(--yellow); width:45px;"><use href="#i-star-outline"/></svg>
+  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="bottom:12%; right:3%; color:var(--turq);"><use href="#i-tri"/></svg>
+
   <div class="wrap">
     <h2 id="details-title" class="h-display h-display--yellow">THE DETAILS</h2>
 
@@ -574,8 +574,11 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   </div>
 </section>
 
-<!-- ============ SECTION 5: RSVP (GOOGLE FORM) ============ -->
+<!-- ============ SECTION 6: RSVP (GOOGLE FORM) ============ -->
 <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
+  <svg class="deco deco--tri float" aria-hidden="true" style="bottom:10%; left:3%; color:var(--yellow);"><use href="#i-tri"/></svg>
+  <svg class="deco deco--star-outline float float--slow" aria-hidden="true" style="top:10%; right:3%; color:var(--turq); width:50px;"><use href="#i-star-outline"/></svg>
+
   <div class="wrap rsvp__layout">
     <div class="rsvp__intro">
       <h2 id="rsvp-title" class="h-display h-display--magenta">RSVP</h2>
@@ -590,16 +593,19 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
       <p style="margin-bottom: 1.75rem; font-size: 1.05rem;">
         Please click the button below to complete the attendance confirmation form (Google Form).
       </p>
-      <a class="btn btn--magenta" href="MASUKKAN_LINK_GOOGLE_FORM_ANDA_DI_SINI" target="_blank" rel="noopener noreferrer">
+      <a class="btn btn--magenta" href="ENTER_YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">
         FILL OUT RSVP FORM (GOOGLE FORM)
       </a>
     </div>
   </div>
 </section>
 
-<!-- ============ SECTION 6: PHOTO GALLERY ============ -->
+<!-- ============ SECTION 7: PHOTO GALLERY ============ -->
 <section class="gallery" id="gallery" aria-labelledby="gallery-title">
   <div class="grid-bg" aria-hidden="true"></div>
+  <svg class="deco deco--star-outline float" aria-hidden="true" style="top:12%; left:2%; color:var(--magenta); width:45px;"><use href="#i-star-outline"/></svg>
+  <svg class="deco deco--tri float float--slow" aria-hidden="true" style="bottom:10%; right:2%; color:var(--yellow);"><use href="#i-tri"/></svg>
+
   <div class="wrap">
     <h2 id="gallery-title" class="h-display h-display--yellow">LITTLE MOMENTS, <span class="brush">BIG MEMORIES</span></h2>
     <div class="polaroids" id="polaroids"></div>
@@ -608,17 +614,15 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 </main>
 
-<!-- ============ SECTION 7: FOOTER ============ -->
+<!-- ============ SECTION 8: FOOTER ============ -->
 <footer class="footer">
   <div class="checker-strip" aria-hidden="true"></div>
   <div class="wrap footer__inner">
-    <svg class="footer__smiley float" aria-hidden="true"><use href="#i-smiley"/></svg>
     <div>
       <p class="footer__thanks">THANK YOU FOR BEING PART OF OUR JOURNEY!</p>
       <p class="footer__event">BIR ALI PRESCHOOL GRADUATION DAY</p>
       <p class="footer__cheers brush">CHEERS TO NEW BEGINNINGS!</p>
     </div>
-    <svg class="footer__scribble" aria-hidden="true"><use href="#i-squiggle"/></svg>
   </div>
 </footer>
 
@@ -626,7 +630,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   <a class="btn btn--yellow dock__rsvp" href="#rsvp" data-scroll>RSVP NOW</a>
   <button type="button" class="dock__music" id="music-btn" aria-pressed="false" aria-label="Toggle background music">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.8" fill="currentColor"/><circle cx="17.5" cy="16" r="2.8" fill="currentColor"/></svg>
-    <span id="music-label">TAP FOR MUSIC</span>
+    <span id="music-label">MUSIC OFF</span>
   </button>
 </div>
 
@@ -647,11 +651,7 @@ const CONFIG = {
     { src: "", caption: "First day of school", alt: "Placeholder photo: first day of school", color: "#FF3E9D" },
     { src: "", caption: "Learning together",   alt: "Placeholder photo: children learning together", color: "#36E0C0" },
     { src: "", caption: "Art time!",           alt: "Placeholder photo: art time", color: "#F8F32B" },
-    { src: "", caption: "Best friends",        alt: "Placeholder photo: classmates being friends", color: "#8B5CF6" },
-    { src: "", caption: "Story corner",        alt: "Placeholder photo: story corner", color: "#36E0C0" },
-    { src: "", caption: "Classroom fun",       alt: "Placeholder photo: classroom fun", color: "#F8F32B" },
-    { src: "", caption: "Playtime smiles",     alt: "Placeholder photo: playtime smiles", color: "#8B5CF6" },
-    { src: "", caption: "Ready to graduate!",  alt: "Placeholder photo: ready to graduate", color: "#FF3E9D" }
+    { src: "", caption: "Ready to graduate!",  alt: "Placeholder photo: ready to graduate", color: "#8B5CF6" }
   ]
 };
 
@@ -766,8 +766,10 @@ function buildGallery() {
   });
 }
 
-function initMusic() {
+function initMusicEngine() {
   const btn = $("#music-btn"), label = $("#music-label");
+  const openBtn = $("#open-btn"), welcomeScreen = $("#welcome-screen");
+  
   const BPM = 122, STEP = 60 / BPM / 4;                 
   const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12); 
   const CHORDS = [
@@ -782,7 +784,7 @@ function initMusic() {
   const setUI = (on) => {
     btn.setAttribute("aria-pressed", String(on));
     btn.classList.toggle("is-on", on);
-    label.textContent = on ? "MUSIC ON" : "MUSIC OFF";
+    label.textContent = on ? "STOP MUSIC" : "PLAY MUSIC";
   };
 
   function tone(type, freq, t, dur, vol, slideTo) {
@@ -838,16 +840,23 @@ function initMusic() {
       }
       playing = true; setUI(true);
     } catch (err) {
-      console.error("Music could not start:", err);
+      console.error("Music playback failed:", err);
       playing = false; setUI(false);
     }
   }
+
   function stop() {
     clearInterval(timer);
     if (audioEl) audioEl.pause();
     if (ctx) ctx.suspend();
     playing = false; setUI(false);
   }
+
+  openBtn.addEventListener("click", () => {
+    welcomeScreen.classList.add("is-hidden");
+    document.body.classList.remove("is-locked");
+    start();
+  });
 
   btn.addEventListener("click", () => (playing ? stop() : start()));
 
@@ -868,7 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initScroll();
   buildGallery();
   initReveal();   
-  initMusic();
+  initMusicEngine();
 });
 </script>
 </body>
