@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bir Ali PreSchool Graduation Day — You're Invited</title>
+  <meta name="description" content="You're invited to the Bir Ali PreSchool Graduation Day. A little graduate, a big new adventure!">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Favicon / Logo Tab Browser -->
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Google Fonts: Anton (condensed display), Permanent Marker (brush), Space Mono + VT323 (retro mono), Caveat (handwritten captions) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Permanent+Marker&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <style>
+/* =====================================================
+   BIR ALI PRESCHOOL GRADUATION DAY — Retro 90s VHS invite
+   ===================================================== */
+
+/* ---------- 1. Design tokens ---------- */
+:root {
+  --black: #080808;
+  --magenta: #FF3E9D;
+  --yellow: #F8F32B;
+  --turq: #36E0C0;
+  --purple: #8B5CF6;
+  --paper: #F5F0E8;
+
+  --f-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --f-brush: "Permanent Marker", "Comic Sans MS", cursive;
+  --f-mono: "Space Mono", "Courier New", monospace;
+  --f-digit: "VT323", "Courier New", monospace;
+  --f-hand: "Caveat", "Comic Sans MS", cursive;
+
+  /* Film grain (SVG noise as data URI) */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+/* Global film grain + faint VHS scanlines */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  background-image: var(--grain);
+  opacity: .09; mix-blend-mode: screen;
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 91; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 3px, rgba(0,0,0,.12) 3px 4px);
+}
+img, svg { max-width: 100%; }
+svg { display: block; }
+h1, h2, h3, p { margin: 0; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--yellow); color: var(--black); padding: .5rem 1rem; z-index: 100; }
+.skip-link:focus { left: 8px; }
+
+.wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; position: relative; z-index: 2; }
+section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
+
+/* Neon retro grid backdrop */
+.grid-bg {
+  position: absolute; inset: 0; z-index: 0; opacity: .35;
+  background:
+    linear-gradient(rgba(54,224,192,.35) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(54,224,192,.35) 1px, transparent 1px) 0 0 / 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+}
+
+/* ---------- 3. Typography helpers ---------- */
+.h-display {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1; letter-spacing: .02em;
+  text-transform: uppercase; text-align: center; margin-bottom: 1.25rem;
+}
+.h-display--yellow { color: var(--yellow); text-shadow: 3px 3px 0 var(--magenta), 0 0 24px rgba(248,243,43,.35); }
+.h-display--magenta { color: var(--magenta); text-shadow: 3px 3px 0 var(--turq), 0 0 28px rgba(255,62,157,.5); }
+.brush { font-family: var(--f-brush); text-transform: none; letter-spacing: 0; color: var(--magenta); text-shadow: 2px 2px 0 var(--black), 0 0 18px rgba(255,62,157,.6); }
+.brush--turq { color: var(--turq); text-shadow: 2px 2px 0 var(--black), 0 0 18px rgba(54,224,192,.6); }
+.lead { max-width: 56ch; margin: 0 auto 3rem; text-align: center; font-size: 1.1rem; }
+.lead--left { text-align: left; margin: 0 0 1.5rem; }
+
+/* ---------- 4. Reusable components ---------- */
+.panel {
+  position: relative; padding: 1.5rem 1.5rem 1.4rem;
+  background: rgba(8,8,8,.85);
+  border: 2px solid var(--yellow);
+  box-shadow: 0 0 0 1px var(--black), 0 0 18px rgba(248,243,43,.45), inset 0 0 18px rgba(248,243,43,.12);
+  z-index: 2;
+}
+.panel--pink { border-color: var(--magenta); box-shadow: 0 0 0 1px var(--black), 0 0 18px rgba(255,62,157,.5), inset 0 0 18px rgba(255,62,157,.12); }
+.panel--turq { border-color: var(--turq); box-shadow: 0 0 0 1px var(--black), 0 0 18px rgba(54,224,192,.5), inset 0 0 18px rgba(54,224,192,.12); }
+
+.sticker {
+  position: absolute; top: -.9rem; left: 1rem;
+  background: var(--yellow); color: var(--black);
+  font-family: var(--f-display); letter-spacing: .08em; font-size: .9rem;
+  padding: .15rem .7rem; transform: rotate(-4deg);
+  border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--black);
+  z-index: 3;
+}
+.sticker--pink { background: var(--magenta); }
+.sticker--turq { background: var(--turq); }
+
+/* Buttons with retro "press" hover */
+.btn {
+  display: inline-block; cursor: pointer; text-decoration: none; text-align: center;
+  font-family: var(--f-display); font-size: 1.3rem; letter-spacing: .08em;
+  padding: .85rem 1.75rem; color: var(--black);
+  border: 3px solid var(--black); box-shadow: 5px 5px 0 var(--paper);
+  transition: transform .12s, box-shadow .12s, filter .12s;
+  position: relative; z-index: 3;
+}
+.btn:hover { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--paper); filter: brightness(1.08); }
+.btn:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--paper); }
+.btn--yellow { background: var(--yellow); }
+.btn--magenta { background: var(--magenta); width: 100%; }
+.btn--turq { background: var(--turq); margin-top: 1.25rem; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: .5; cursor: not-allowed; filter: grayscale(.6); transform: none; box-shadow: 5px 5px 0 var(--paper); }
+
+/* Decorations */
+.deco { position: absolute; z-index: 1; pointer-events: none; }
+.float { animation: bob 5s ease-in-out infinite; }
+.float--slow { animation-duration: 8s; animation-delay: -2s; }
+@keyframes bob { 0%,100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg)); } }
+
+.checker-strip, .hero__checker {
+  height: 28px;
+  background: conic-gradient(var(--paper) 25%, var(--black) 0 50%, var(--paper) 0 75%, var(--black) 0) 0 0 / 28px 28px;
+}
+
+/* ---------- 5. Hero ---------- */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 0 0 clamp(3rem, 8vw, 6rem);
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(139,92,246,.35), transparent 55%),
+    radial-gradient(ellipse at 90% 80%, rgba(255,62,157,.22), transparent 55%),
+    var(--black);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; opacity: .14; background-image: var(--grain); background-size: 260px; mix-blend-mode: screen;
+}
+.hero__inner { 
+  position: relative; 
+  z-index: 3; 
+  width: min(900px, 100% - 2rem); 
+  margin: clamp(2rem, 6vw, 4.5rem) auto 0; 
+  text-align: center; 
+}
+.hero__kicker { font-family: var(--f-mono); font-weight: 700; letter-spacing: .3em; color: var(--turq); font-size: clamp(.8rem, 2.2vw, 1.1rem); margin-bottom: .75rem; }
+
+.hero__title { position: relative; font-family: var(--f-display); font-weight: 400; text-transform: uppercase; line-height: .92; margin-bottom: 2rem; }
+.hero__title > span { display: block; }
+.t-bir {
+  font-size: clamp(4.5rem, 22vw, 14rem); color: var(--yellow); letter-spacing: .01em;
+  text-shadow: 4px 4px 0 var(--magenta), 8px 8px 0 var(--black), 0 0 35px rgba(248,243,43,.35);
+}
+.t-pre { font-size: clamp(2.4rem, 11vw, 7rem); color: var(--paper); letter-spacing: .05em; text-shadow: 3px 3px 0 var(--purple); }
+.t-grad { 
+  font-size: clamp(1.8rem, 8.5vw, 5.2rem); 
+  color: var(--magenta); 
+  letter-spacing: .02em; 
+  margin-top: .25rem; 
+  text-shadow: 3px 3px 0 var(--black), 0 0 20px rgba(255,62,157,.5); 
+}
+.t-grad .t-day { color: var(--turq); margin-left: .15em; }
+
+.hero__panel { max-width: 640px; margin: 0 auto 2rem; text-align: left; display: grid; gap: .55rem; }
+.hero__panel > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: .75rem; align-items: baseline; }
+.hero__panel dt { color: var(--yellow); font-weight: 700; letter-spacing: .12em; }
+.hero__panel dd { margin: 0; overflow-wrap: anywhere; }
+.hero__tag { 
+  position: relative;
+  z-index: 3;
+  font-family: var(--f-brush); 
+  font-size: clamp(1.2rem, 3.8vw, 1.9rem); 
+  color: var(--magenta); 
+  text-shadow: 0 0 14px rgba(255,62,157,.7); 
+  margin-bottom: 2rem; 
+  transform: rotate(-1.5deg); 
+}
+
+/* SVG Positioning optimized for all screens */
+.deco--cassette { width: clamp(80px, 15vw, 190px); left: 2%; top: 4%; --r: -12deg; transform: rotate(-12deg); }
+.deco--crt { width: clamp(70px, 13vw, 170px); right: 2%; top: 4%; --r: 8deg; transform: rotate(8deg); }
+.deco--smiley { width: clamp(50px, 8vw, 100px); left: 3%; bottom: 6%; z-index: 1; }
+.deco--floppy { width: clamp(50px, 7vw, 95px); right: 3%; bottom: 8%; --r: -10deg; transform: rotate(-10deg); z-index: 1; }
+.deco--star { width: clamp(35px, 5vw, 75px); right: 18%; top: 2%; }
+.deco--tri { width: 60px; }
+.deco--tri-a { color: var(--turq); left: 20%; top: 5%; transform: rotate(14deg); }
+.deco--tri-b { color: var(--magenta); right: 18%; bottom: 25%; --r: -18deg; transform: rotate(-18deg); z-index: 1; }
+
+/* ---------- 6. Countdown ---------- */
+.countdown { background: #0c0c0c; border-block: 4px solid var(--purple); }
+.countdown__boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 2vw, 1.5rem); max-width: 860px; margin: 2rem auto 0; }
+.crt-box {
+  position: relative; overflow: hidden; text-align: center;
+  padding: clamp(.8rem, 2.5vw, 1.6rem) .25rem;
+  background: radial-gradient(ellipse at 50% 0%, #1b1b22, #050505 75%);
+  border: 3px solid #1c1c1c; border-radius: 14px;
+  box-shadow: 0 0 0 2px var(--turq), 0 0 20px rgba(54,224,192,.4), inset 0 0 25px rgba(0,0,0,.9);
+}
+.crt-box::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.35) 2px 3px);
+}
+.crt-box::after {
+  content: ""; position: absolute; top: 4%; left: 6%; width: 60%; height: 30%; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,255,255,.18), transparent); border-radius: 50%; transform: rotate(-8deg);
+}
+.crt-box__num { display: block; position: relative; font-family: var(--f-digit); font-size: clamp(2.5rem, 10vw, 6rem); line-height: 1; color: var(--magenta); text-shadow: 0 0 10px var(--magenta), 0 0 26px rgba(255,62,157,.6); }
+.crt-box__label { display: block; position: relative; font-weight: 700; font-size: clamp(.6rem, 2vw, .9rem); letter-spacing: .15em; color: var(--turq); margin-top: .35rem; }
+.countdown__msg { text-align: center; margin-top: 2rem; font-family: var(--f-display); font-size: clamp(1.6rem, 5vw, 3.2rem); color: var(--turq); text-shadow: 3px 3px 0 var(--magenta); }
+.countdown.is-done .countdown__boxes, .countdown.is-pending .countdown__boxes { display: none; }
+
+/* ---------- 7. Celebration ---------- */
+.celebrate { background: linear-gradient(180deg, #120a1f, var(--black)); }
+.celebrate::before { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: .08; }
+.deco--cap-l { width: clamp(60px, 9vw, 120px); left: 3%; top: 6%; --r: -14deg; transform: rotate(-14deg); }
+.deco--star-r { width: clamp(40px, 6vw, 80px); right: 4%; top: 8%; }
+
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; }
+.card {
+  position: relative; text-align: center; padding: 2.25rem 1.25rem 1.75rem;
+  background: var(--paper); color: var(--black);
+  border: 3px solid var(--black); box-shadow: 8px 8px 0 var(--purple);
+  transition: transform .25s;
+}
+.card--a { transform: rotate(-2deg); } .card--b { transform: rotate(1.5deg); box-shadow: 8px 8px 0 var(--magenta); } .card--c { transform: rotate(-1deg); box-shadow: 8px 8px 0 var(--turq); }
+.card:hover { transform: rotate(0) translateY(-6px) scale(1.02); }
+.card::before {
+  content: ""; position: absolute; top: -14px; left: 50%; width: 90px; height: 26px; transform: translateX(-50%) rotate(3deg);
+  background: rgba(248,243,43,.8); border: 1px dashed rgba(0,0,0,.25);
+}
+.card__icon { width: 84px; height: 84px; margin: 0 auto 1rem; }
+.card h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.7rem; line-height: 1.1; letter-spacing: .03em; }
+.card .sticker { top: auto; bottom: -.9rem; left: auto; right: 1rem; }
+
+/* ---------- 8. Details ---------- */
+.details { background: #0b0b0b; }
+.info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.25rem 1.75rem; margin-top: 2.5rem; }
+.info { padding-top: 2rem; }
+.info--wide { grid-column: 1 / -1; }
+.info__icon { width: 34px; height: 34px; color: var(--yellow); margin-bottom: .5rem; }
+.panel--pink .info__icon { color: var(--magenta); } .panel--turq .info__icon { color: var(--turq); }
+.info__main { font-family: var(--f-display); font-size: clamp(1.5rem, 4vw, 2.4rem); line-height: 1.15; letter-spacing: .03em; text-transform: uppercase; overflow-wrap: anywhere; }
+.info__sub { margin-top: .5rem; opacity: .9; overflow-wrap: anywhere; }
+.info__sub b { color: var(--yellow); }
+
+/* ---------- 9. RSVP ---------- */
+.rsvp { background: radial-gradient(ellipse at 15% 30%, rgba(255,62,157,.2), transparent 55%), var(--black); }
+.rsvp__layout { display: grid; grid-template-columns: 5fr 7fr; gap: 2.5rem; align-items: start; }
+.rsvp .h-display { text-align: left; font-size: clamp(3rem, 9vw, 6.5rem); }
+.rsvp__sub { font-family: var(--f-brush); font-size: clamp(1.2rem, 2.8vw, 1.8rem); color: var(--turq); margin-bottom: 1rem; }
+
+/* ---------- 10. Gallery ---------- */
+.gallery { background: #0c0c0c; border-top: 4px solid var(--magenta); }
+.polaroids { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem 2rem; margin-top: 3rem; padding-inline: .5rem; }
+.polaroid { margin: 0; background: var(--paper); color: var(--black); padding: .8rem .8rem 0; box-shadow: 0 10px 24px rgba(0,0,0,.6); transform: rotate(var(--tilt, -2deg)); transition: transform .3s, box-shadow .3s; position: relative; }
+.polaroid:nth-child(3n+1) { --tilt: -3deg; } .polaroid:nth-child(3n+2) { --tilt: 2deg; } .polaroid:nth-child(3n) { --tilt: -1deg; }
+.polaroid:hover, .polaroid:focus-within { transform: rotate(0) scale(1.06); z-index: 5; box-shadow: 0 16px 36px rgba(255,62,157,.45); }
+.polaroid img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; background: #222; }
+.polaroid figcaption { font-family: var(--f-hand); font-size: 1.6rem; line-height: 1; text-align: center; padding: .9rem .25rem 1rem; }
+.polaroid::before { content: ""; position: absolute; top: -12px; left: 50%; width: 70px; height: 22px; transform: translateX(-50%) rotate(-3deg); background: rgba(54,224,192,.75); }
+
+/* ---------- 11. Footer ---------- */
+.footer { background: var(--black); padding-bottom: 5rem; position: relative; overflow: hidden; }
+.footer__inner { display: flex; align-items: center; justify-content: center; gap: 2rem; text-align: center; padding-top: 2.5rem; }
+.footer__smiley { width: 70px; height: 70px; flex: none; }
+.footer__thanks { font-family: var(--f-display); font-size: clamp(1.2rem, 3.4vw, 2.1rem); color: var(--yellow); letter-spacing: .04em; }
+.footer__event { color: var(--turq); font-weight: 700; letter-spacing: .12em; margin: .35rem 0; font-size: .85rem; }
+.footer__cheers { font-size: clamp(1.1rem, 2.8vw, 1.6rem); }
+.footer__scribble { width: 110px; height: 22px; color: var(--magenta); flex: none; }
+
+/* ---------- 12. Scroll reveal (single gentle effect) ---------- */
+.reveal { opacity: 0; translate: 0 24px; transition: opacity .6s ease, translate .6s ease; }
+.reveal.is-visible { opacity: 1; translate: 0 0; }
+
+/* ---------- 13. Responsive Improvements ---------- */
+@media (max-width: 960px) {
+  .deco--cassette { left: 1%; top: 2%; opacity: .85; } 
+  .deco--crt { right: 1%; top: 2%; opacity: .85; }
+  .deco--tri-a, .deco--star { display: none; }
+  .rsvp__layout { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+  .footer__scribble { display: none; }
+}
+
+@media (max-width: 640px) {
+  /* Prevent horizontal scroll and adjust overall padding */
+  body { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+  section { padding: 2.5rem 0; }
+  .wrap { width: calc(100% - 1.5rem); }
+
+  /* Hero Spacing & Layout Fixes */
+  .hero__inner { margin-top: 5rem; }
+  .hero__panel > div { grid-template-columns: 1fr; gap: 0; }
+  .hero__panel { padding: 1.25rem 1rem; }
+  
+  /* SVG Adjustments for Mobile Screens to eliminate overlap */
+  .deco--cassette { width: 65px; left: 10px; top: 15px; }
+  .deco--crt { width: 55px; right: 10px; top: 15px; }
+  .deco--smiley { width: 42px; left: 10px; bottom: 85px; }
+  .deco--floppy { width: 42px; right: 10px; bottom: 85px; }
+  .deco--tri-b { width: 45px; right: 15px; bottom: 180px; }
+
+  /* Typography & Component Scale */
+  .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer__inner { flex-direction: column; gap: 1rem; }
+  .btn { font-size: 1.15rem; padding: .75rem 1.25rem; width: 100%; }
+
+  .countdown__boxes { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+  .crt-box__num { font-size: clamp(3rem, 16vw, 4.5rem); }
+  .crt-box__label { font-size: .75rem; }
+
+  .card { padding: 1.75rem 1rem 1.25rem; }
+  .info__main { font-size: 1.5rem; }
+
+  .rsvp .h-display, .rsvp__intro { text-align: center; }
+
+  .polaroids { grid-template-columns: repeat(2, 1fr); gap: 1.8rem .75rem; padding-inline: 0; margin-top: 2rem; }
+  .polaroid { padding: .4rem .4rem 0; }
+  .polaroid figcaption { font-size: 1.15rem; padding: .5rem 0 .6rem; }
+}
+
+/* Music & Action Dock Bar */
+.dock { 
+  position: fixed; 
+  z-index: 95; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  display: flex; 
+  gap: .5rem; 
+  justify-content: flex-end; 
+  align-items: center; 
+  padding: .6rem .8rem calc(.6rem + env(safe-area-inset-bottom)); 
+  pointer-events: none; 
+  background: linear-gradient(transparent, rgba(8,8,8,.95) 40%);
+}
+.dock > * { pointer-events: auto; }
+.dock__music { 
+  min-height: 46px; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: .4rem; 
+  cursor: pointer; 
+  font-family: var(--f-display); 
+  font-size: .95rem; 
+  letter-spacing: .06em; 
+  background: var(--black); 
+  color: var(--turq); 
+  border: 2px solid var(--turq); 
+  padding: 0 .85rem; 
+  box-shadow: 0 0 12px rgba(54,224,192,.4); 
+}
+.dock__music svg { width: 20px; height: 20px; }
+.dock__music.is-on { background: var(--magenta); color: var(--black); border-color: var(--black); box-shadow: 3px 3px 0 var(--paper); }
+.dock__music:not(.is-on) { animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 8px rgba(54,224,192,.4); } 50% { box-shadow: 0 0 20px rgba(54,224,192,.95); } }
+.dock__rsvp { 
+  display: none; 
+  flex: 1; 
+  min-height: 46px; 
+  padding: .5rem .85rem; 
+  font-size: 1.05rem; 
+  box-shadow: 3px 3px 0 var(--paper); 
+}
+
+@media (max-width: 640px) {
+  .dock__rsvp { display: block; }
+  .dock.is-rsvp .dock__rsvp { display: none; }
+}
+
+/* ---------- 14. Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; translate: 0 0; }
+}
+  </style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-smiley" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="#F8F32B" stroke="#080808" stroke-width="5"/>
+      <ellipse cx="35" cy="38" rx="6" ry="10" fill="#080808"/>
+      <ellipse cx="65" cy="38" rx="6" ry="10" fill="#080808"/>
+      <path d="M24 60 Q50 90 76 60" fill="none" stroke="#080808" stroke-width="7" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-cap" viewBox="0 0 120 100">
+      <path d="M60 14 L116 40 L60 66 L4 40 Z" fill="#8B5CF6" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M28 54 V76 Q60 96 92 76 V54 L60 68 Z" fill="#6d3fe0" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M108 44 V74" stroke="#F8F32B" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="108" cy="80" r="6" fill="#F8F32B" stroke="#080808" stroke-width="3"/>
+    </symbol>
+    <symbol id="i-cassette" viewBox="0 0 160 100">
+      <rect x="3" y="3" width="154" height="94" rx="8" fill="#F5F0E8" stroke="#080808" stroke-width="4"/>
+      <rect x="14" y="12" width="132" height="42" rx="4" fill="#FF3E9D" stroke="#080808" stroke-width="3"/>
+      <circle cx="52" cy="33" r="13" fill="#080808"/><circle cx="108" cy="33" r="13" fill="#080808"/>
+      <circle cx="52" cy="33" r="5" fill="#F5F0E8"/><circle cx="108" cy="33" r="5" fill="#F5F0E8"/>
+      <path d="M26 74 H134 L124 94 H36 Z" fill="#36E0C0" stroke="#080808" stroke-width="3"/>
+      <circle cx="46" cy="84" r="3.5" fill="#080808"/><circle cx="114" cy="84" r="3.5" fill="#080808"/>
+    </symbol>
+    <symbol id="i-crt" viewBox="0 0 140 120">
+      <rect x="4" y="6" width="132" height="96" rx="14" fill="#F5F0E8" stroke="#080808" stroke-width="4"/>
+      <rect x="16" y="18" width="84" height="70" rx="12" fill="#36E0C0" stroke="#080808" stroke-width="4"/>
+      <path d="M26 66 L46 40 L62 58 L76 46 L92 70" fill="none" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+      <circle cx="118" cy="38" r="8" fill="#FF3E9D" stroke="#080808" stroke-width="3"/>
+      <circle cx="118" cy="64" r="8" fill="#F8F32B" stroke="#080808" stroke-width="3"/>
+      <path d="M44 102 L36 116 M96 102 L104 116" stroke="#080808" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-floppy" viewBox="0 0 100 100">
+      <path d="M6 6 H78 L94 22 V94 H6 Z" fill="#8B5CF6" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+      <rect x="24" y="6" width="44" height="30" fill="#F5F0E8" stroke="#080808" stroke-width="3"/>
+      <rect x="54" y="10" width="8" height="20" fill="#080808"/>
+      <rect x="18" y="52" width="64" height="42" fill="#F5F0E8" stroke="#080808" stroke-width="3"/>
+      <path d="M26 66 H74 M26 78 H62" stroke="#FF3E9D" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 100 100">
+      <path d="M50 6 L62 38 L96 40 L69 61 L79 94 L50 75 L21 94 L31 61 L4 40 L38 38 Z" fill="#F8F32B" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-tri" viewBox="0 0 100 90">
+      <path d="M50 6 L94 84 H6 Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-squiggle" viewBox="0 0 200 40">
+      <path d="M4 20 Q24 -2 44 20 T84 20 T124 20 T164 20 T196 20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" fill="currentColor"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><path d="M7 2v3M17 2v3M3 8h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#details">Skip to the details</a>
+
+<!-- ============ SECTION 1: HERO / INVITATION ============ -->
+<header class="hero" id="top">
+  <div class="hero__checker" aria-hidden="true"></div>
+
+  <svg class="deco deco--cassette float" aria-hidden="true"><use href="#i-cassette"/></svg>
+  <svg class="deco deco--crt float float--slow" aria-hidden="true"><use href="#i-crt"/></svg>
+  <svg class="deco deco--smiley float" aria-hidden="true"><use href="#i-smiley"/></svg>
+  <svg class="deco deco--tri deco--tri-a" aria-hidden="true"><use href="#i-tri"/></svg>
+  <svg class="deco deco--tri deco--tri-b float float--slow" aria-hidden="true"><use href="#i-tri"/></svg>
+  <svg class="deco deco--floppy float" aria-hidden="true"><use href="#i-floppy"/></svg>
+  <svg class="deco deco--star float float--slow" aria-hidden="true"><use href="#i-star"/></svg>
+
+  <div class="hero__inner">
+    <p class="hero__kicker">YOU'RE INVITED TO</p>
+
+    <h1 class="hero__title">
+      <span class="t-bir">BIR ALI</span>
+      <span class="t-pre">PRESCHOOL</span>
+      <span class="t-grad">GRADUATION<span class="t-day">DAY</span></span>
+    </h1>
+
+    <dl class="panel panel--neon hero__panel">
+      <div><dt>DATE:</dt><dd data-config="dateText">21 November 2026</dd></div>
+      <div><dt>TIME:</dt><dd data-config="timeText">8.00 AM - 12.00 PM</dd></div>
+      <div><dt>VENUE:</dt><dd data-config="venue">Auditorium Permata Pintar</dd></div>
+      <div><dt>ADDRESS:</dt><dd data-config="address">UKM, Bangi</dd></div>
+    </dl>
+
+    <p class="hero__tag">GROWING UP, THE 90S WAY!</p>
+
+    <a class="btn btn--yellow" href="#rsvp" data-scroll>CELEBRATE WITH US</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ SECTION 2: COUNTDOWN ============ -->
+<section class="countdown" id="countdown" aria-labelledby="countdown-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 id="countdown-title" class="h-display h-display--yellow">THE BIG DAY COUNTDOWN</h2>
+
+    <div class="countdown__boxes" id="countdown-boxes" role="timer" aria-live="off">
+      <div class="crt-box"><span class="crt-box__num" id="cd-days">--</span><span class="crt-box__label">DAYS</span></div>
+      <div class="crt-box"><span class="crt-box__num" id="cd-hours">--</span><span class="crt-box__label">HOURS</span></div>
+      <div class="crt-box"><span class="crt-box__num" id="cd-minutes">--</span><span class="crt-box__label">MINUTES</span></div>
+      <div class="crt-box"><span class="crt-box__num" id="cd-seconds">--</span><span class="crt-box__label">SECONDS</span></div>
+    </div>
+
+    <p class="countdown__msg" id="countdown-msg" role="status" hidden></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 3: GRADUATION CELEBRATION ============ -->
+<section class="celebrate" id="celebrate" aria-labelledby="celebrate-title">
+  <svg class="deco deco--cap-l float" aria-hidden="true"><use href="#i-cap"/></svg>
+  <svg class="deco deco--star-r float float--slow" aria-hidden="true"><use href="#i-star"/></svg>
+  <div class="wrap">
+    <h2 id="celebrate-title" class="h-display h-display--magenta">SMALL STEPS, <span class="brush brush--turq">BIG DREAMS</span></h2>
+    <p class="lead">Celebrating little milestones, wonderful memories, and the exciting adventures that lie ahead.</p>
+
+    <div class="cards">
+      <article class="card card--a reveal">
+        <svg class="card__icon" aria-hidden="true"><use href="#i-star"/></svg>
+        <h3>A JOURNEY OF GROWTH</h3>
+        <span class="sticker">STEP 1</span>
+      </article>
+      <article class="card card--b reveal">
+        <svg class="card__icon" aria-hidden="true"><use href="#i-smiley"/></svg>
+        <h3>MEMORIES TO CHERISH</h3>
+        <span class="sticker sticker--pink">KEEPSAKE</span>
+      </article>
+      <article class="card card--c reveal">
+        <svg class="card__icon" aria-hidden="true"><use href="#i-cap"/></svg>
+        <h3>A FUTURE FULL OF DREAMS</h3>
+        <span class="sticker sticker--turq">NEXT UP</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: EVENT DETAILS ============ -->
+<section class="details" id="details" aria-labelledby="details-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 id="details-title" class="h-display h-display--yellow">THE DETAILS</h2>
+
+    <div class="info-grid">
+      <div class="panel panel--neon info reveal">
+        <span class="sticker">DATE</span>
+        <svg class="info__icon" aria-hidden="true"><use href="#i-cal"/></svg>
+        <p class="info__main" data-config="dateText">21 November 2026</p>
+      </div>
+      <div class="panel panel--neon panel--pink info reveal">
+        <span class="sticker sticker--pink">TIME</span>
+        <svg class="info__icon" aria-hidden="true"><use href="#i-clock"/></svg>
+        <p class="info__main" data-config="timeText">8.00 AM - 12.00 PM</p>
+        <p class="info__sub">Starts <b data-config="startTime">8.00 AM</b> · Ends <b data-config="endTime">12.00 PM</b></p>
+      </div>
+      <div class="panel panel--neon panel--turq info info--wide reveal">
+        <span class="sticker sticker--turq">VENUE</span>
+        <svg class="info__icon" aria-hidden="true"><use href="#i-pin"/></svg>
+        <p class="info__main" data-config="venue">Auditorium Permata Pintar</p>
+        <p class="info__sub" data-config="address">UKM, Bangi</p>
+        <a class="btn btn--turq" id="directions-btn" href="#" target="_blank" rel="noopener">GET DIRECTIONS</a>
+      </div>
+      <div class="panel panel--neon info reveal" id="dress-panel" hidden>
+        <span class="sticker">DRESS CODE</span>
+        <svg class="info__icon" aria-hidden="true"><use href="#i-shirt"/></svg>
+        <p class="info__main" data-config="dressCode"></p>
+      </div>
+      <div class="panel panel--neon panel--pink info reveal" id="notes-panel" hidden>
+        <span class="sticker sticker--pink">GOOD TO KNOW</span>
+        <svg class="info__icon" aria-hidden="true"><use href="#i-note"/></svg>
+        <p class="info__main" data-config="notes"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5: RSVP (GOOGLE FORM) ============ -->
+<section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="wrap rsvp__layout">
+    <div class="rsvp__intro">
+      <h2 id="rsvp-title" class="h-display h-display--magenta">RSVP</h2>
+      <p class="rsvp__sub">LET US KNOW IF YOU'LL BE THERE!</p>
+      <p class="lead lead--left">Your presence will make this special milestone even more memorable.</p>
+    </div>
+
+    <div class="panel panel--neon panel--turq" style="text-align: center; padding: 2.5rem 1.25rem;">
+      <h3 style="font-family: var(--f-display); font-size: 1.8rem; color: var(--yellow); margin-bottom: 1rem;">
+        ATTENDANCE CONFIRMATION
+      </h3>
+      <p style="margin-bottom: 1.75rem; font-size: 1.05rem;">
+        Please click the button below to complete the attendance confirmation form (Google Form).
+      </p>
+      <a class="btn btn--magenta" href="MASUKKAN_LINK_GOOGLE_FORM_ANDA_DI_SINI" target="_blank" rel="noopener noreferrer">
+        FILL OUT RSVP FORM (GOOGLE FORM)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6: PHOTO GALLERY ============ -->
+<section class="gallery" id="gallery" aria-labelledby="gallery-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <h2 id="gallery-title" class="h-display h-display--yellow">LITTLE MOMENTS, <span class="brush">BIG MEMORIES</span></h2>
+    <div class="polaroids" id="polaroids"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ SECTION 7: FOOTER ============ -->
+<footer class="footer">
+  <div class="checker-strip" aria-hidden="true"></div>
+  <div class="wrap footer__inner">
+    <svg class="footer__smiley float" aria-hidden="true"><use href="#i-smiley"/></svg>
+    <div>
+      <p class="footer__thanks">THANK YOU FOR BEING PART OF OUR JOURNEY!</p>
+      <p class="footer__event">BIR ALI PRESCHOOL GRADUATION DAY</p>
+      <p class="footer__cheers brush">CHEERS TO NEW BEGINNINGS!</p>
+    </div>
+    <svg class="footer__scribble" aria-hidden="true"><use href="#i-squiggle"/></svg>
+  </div>
+</footer>
+
+<div class="dock" id="dock">
+  <a class="btn btn--yellow dock__rsvp" href="#rsvp" data-scroll>RSVP NOW</a>
+  <button type="button" class="dock__music" id="music-btn" aria-pressed="false" aria-label="Toggle background music">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.8" fill="currentColor"/><circle cx="17.5" cy="16" r="2.8" fill="currentColor"/></svg>
+    <span id="music-label">TAP FOR MUSIC</span>
+  </button>
+</div>
+
+<script>
+const CONFIG = {
+  eventDate: "2026-11-21T08:00:00+08:00",
+  dateText: "21 November 2026",
+  timeText: "8.00 AM - 12.00 PM",
+  startTime: "8.00 AM",
+  endTime: "12.00 PM",
+  venue: "Auditorium Permata Pintar",
+  address: "UKM, Bangi",
+  rsvpDeadline: "",
+  dressCode: "",
+  notes: "",
+  musicSrc: "",
+  gallery: [
+    { src: "", caption: "First day of school", alt: "Placeholder photo: first day of school", color: "#FF3E9D" },
+    { src: "", caption: "Learning together",   alt: "Placeholder photo: children learning together", color: "#36E0C0" },
+    { src: "", caption: "Art time!",           alt: "Placeholder photo: art time", color: "#F8F32B" },
+    { src: "", caption: "Best friends",        alt: "Placeholder photo: classmates being friends", color: "#8B5CF6" },
+    { src: "", caption: "Story corner",        alt: "Placeholder photo: story corner", color: "#36E0C0" },
+    { src: "", caption: "Ready to graduate!",  alt: "Placeholder photo: ready to graduate", color: "#FF3E9D" }
+  ]
+};
+
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const pad = (n) => String(n).padStart(2, "0");
+
+function applyConfig() {
+  $$("[data-config]").forEach((el) => {
+    const value = CONFIG[el.dataset.config];
+    if (value) el.textContent = value;
+  });
+  $("#dress-panel").hidden = !CONFIG.dressCode;
+  $("#notes-panel").hidden = !CONFIG.notes;
+
+  const btn = $("#directions-btn");
+  if (CONFIG.address) {
+    btn.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.venue + " " + CONFIG.address);
+  } else {
+    btn.removeAttribute("href");
+    btn.setAttribute("aria-disabled", "true");
+    btn.textContent = "ADDRESS COMING SOON";
+    btn.addEventListener("click", (e) => e.preventDefault());
+  }
+}
+
+function initCountdown() {
+  const section = $("#countdown");
+  const msg = $("#countdown-msg");
+  const els = { d: $("#cd-days"), h: $("#cd-hours"), m: $("#cd-minutes"), s: $("#cd-seconds") };
+
+  const target = CONFIG.eventDate ? new Date(CONFIG.eventDate).getTime() : NaN;
+
+  if (Number.isNaN(target)) {
+    section.classList.add("is-pending");
+    msg.hidden = false;
+    msg.textContent = "COUNTDOWN COMING SOON";
+    return;
+  }
+
+  let timer;
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      clearInterval(timer);
+      section.classList.add("is-done");
+      msg.hidden = false;
+      msg.textContent = "TODAY IS THE BIG DAY!";
+      return;
+    }
+    const total = Math.floor(diff / 1000);
+    els.d.textContent = pad(Math.floor(total / 86400));
+    els.h.textContent = pad(Math.floor((total % 86400) / 3600));
+    els.m.textContent = pad(Math.floor((total % 3600) / 60));
+    els.s.textContent = pad(total % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+}
+
+function initScroll() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$("[data-scroll]").forEach((a) =>
+    a.addEventListener("click", (e) => {
+      const target = $(a.getAttribute("href"));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    })
+  );
+}
+
+function initReveal() {
+  const items = $$(".reveal");
+  if (!("IntersectionObserver" in window)) { items.forEach((i) => i.classList.add("is-visible")); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15 });
+  items.forEach((i) => io.observe(i));
+}
+
+function placeholderSrc(color, label) {
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">` +
+    `<rect width="400" height="400" fill="#101014"/>` +
+    `<path d="M0 400 L400 0 L400 80 L80 400Z" fill="${color}" opacity=".28"/>` +
+    `<circle cx="200" cy="170" r="70" fill="${color}"/>` +
+    `<path d="M120 300 Q200 220 280 300 V400 H120Z" fill="${color}"/>` +
+    `<text x="200" y="385" text-anchor="middle" font-family="monospace" font-size="20" fill="#F5F0E8">PHOTO COMING SOON</text>` +
+    `</svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+function buildGallery() {
+  const box = $("#polaroids");
+  CONFIG.gallery.forEach((p) => {
+    const fig = document.createElement("figure");
+    fig.className = "polaroid reveal";
+    fig.tabIndex = 0;
+    const img = document.createElement("img");
+    img.src = p.src || placeholderSrc(p.color, p.caption);
+    img.alt = p.alt;
+    img.loading = "lazy";
+    const cap = document.createElement("figcaption");
+    cap.textContent = p.caption;
+    fig.append(img, cap);
+    box.appendChild(fig);
+  });
+}
+
+function initMusic() {
+  const btn = $("#music-btn"), label = $("#music-label");
+  const BPM = 122, STEP = 60 / BPM / 4;                 
+  const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12); 
+  const CHORDS = [
+    { root: 45, tones: [69, 72, 76] },
+    { root: 41, tones: [65, 69, 72] },
+    { root: 48, tones: [67, 72, 76] },
+    { root: 43, tones: [67, 71, 74] }
+  ];
+  const ARP = [0, 1, 2, 1];
+  let ctx, master, noiseBuf, timer, step = 0, nextTime = 0, playing = false, wasPlaying = false, audioEl = null;
+
+  const setUI = (on) => {
+    btn.setAttribute("aria-pressed", String(on));
+    btn.classList.toggle("is-on", on);
+    label.textContent = on ? "MUSIC ON" : "MUSIC OFF";
+  };
+
+  function tone(type, freq, t, dur, vol, slideTo) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, t);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(master);
+    o.start(t); o.stop(t + dur + 0.03);
+  }
+  function noise(t, dur, vol, hp) {
+    const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = "highpass"; f.frequency.value = hp;
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(f); f.connect(g); g.connect(master);
+    s.start(t); s.stop(t + dur + 0.03);
+  }
+  function schedule(i, t) {
+    const c = CHORDS[Math.floor(i / 16) % 4], s = i % 16;
+    if (s % 4 === 0) tone("sine", 150, t, 0.2, 0.9, 45);              
+    if (s === 4 || s === 12) noise(t, 0.14, 0.35, 1500);               
+    if (s % 4 === 2) { noise(t, 0.05, 0.16, 7000);                     
+                       tone("sawtooth", mtof(c.root), t, STEP * 1.8, 0.26); } 
+    if (s % 2 === 0) {                                                 
+      const note = c.tones[ARP[(s / 2) % 4]] + ((Math.floor(i / 16) % 4) >= 2 && s % 8 === 0 ? 12 : 0);
+      tone("square", mtof(note), t, STEP * 1.6, 0.06);
+    }
+  }
+  function scheduler() {
+    while (nextTime < ctx.currentTime + 0.15) {
+      schedule(step, nextTime); nextTime += STEP; step = (step + 1) % 64;
+    }
+  }
+
+  async function start() {
+    try {
+      if (CONFIG.musicSrc) {
+        audioEl = audioEl || Object.assign(new Audio(CONFIG.musicSrc), { loop: true, volume: 0.5 });
+        await audioEl.play();
+      } else {
+        if (!ctx) {
+          ctx = new (window.AudioContext || window.webkitAudioContext)();
+          master = ctx.createGain(); master.gain.value = 0.3; master.connect(ctx.destination);
+          noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
+          const d = noiseBuf.getChannelData(0);
+          for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        }
+        await ctx.resume();
+        step = 0; nextTime = ctx.currentTime + 0.05;
+        clearInterval(timer); timer = setInterval(scheduler, 25);
+      }
+      playing = true; setUI(true);
+    } catch (err) {
+      console.error("Music could not start:", err);
+      playing = false; setUI(false);
+    }
+  }
+  function stop() {
+    clearInterval(timer);
+    if (audioEl) audioEl.pause();
+    if (ctx) ctx.suspend();
+    playing = false; setUI(false);
+  }
+
+  btn.addEventListener("click", () => (playing ? stop() : start()));
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { wasPlaying = playing; if (playing) stop(); }
+    else if (wasPlaying) { wasPlaying = false; start(); }
+  });
+
+  const dock = $("#dock"), rsvp = $("#rsvp");
+  if ("IntersectionObserver" in window && rsvp) {
+    new IntersectionObserver(([e]) => dock.classList.toggle("is-rsvp", e.isIntersecting), { threshold: 0.15 }).observe(rsvp);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  applyConfig();
+  initCountdown();
+  initScroll();
+  buildGallery();
+  initReveal();   
+  initMusic();
+});
+</script>
+</body>
+</html>
