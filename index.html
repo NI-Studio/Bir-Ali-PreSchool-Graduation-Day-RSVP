@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Lilita+One&family=Poppins:wght@400;600&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <style>
 :root {
   --black: #080808;
@@ -175,14 +175,22 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .float--slow { animation-duration: 8s; animation-delay: -2s; }
 @keyframes bob { 0%,100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg)); } }
 
-.checker-strip, .hero__checker {
+.checker-strip {
   height: 28px;
   background: conic-gradient(var(--paper) 25%, var(--black) 0 50%, var(--paper) 0 75%, var(--black) 0) 0 0 / 28px 28px;
 }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+/* ============ HERO — 90'S FOREVER POSTER ============ */
 .hero {
+  --ink: #2E2A6B;
+  --p-yellow: #FFEE6E;
+  --p-cyan: #6ED6E0;
+  --p-purple: #AB8BFF;
+  --p-orange: #FFB04F;
+  --p-pink: #FF5BA8;
   position: relative; overflow: hidden;
-  padding: 0 0 clamp(3rem, 8vw, 6rem);
+  padding: clamp(1.25rem, 4vw, 3rem) 0 clamp(2.5rem, 6vw, 4.5rem);
   background:
     radial-gradient(ellipse at 20% 10%, rgba(139,92,246,.35), transparent 55%),
     radial-gradient(ellipse at 90% 80%, rgba(255,62,157,.22), transparent 55%),
@@ -191,46 +199,65 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: 0; opacity: .14; background-image: var(--grain); background-size: 260px; mix-blend-mode: screen;
 }
-.hero__inner { 
-  position: relative; 
-  z-index: 3; 
-  width: min(900px, 100% - 2rem); 
-  margin: clamp(2rem, 6vw, 4.5rem) auto 0; 
-  text-align: center; 
-}
-.hero__kicker { font-family: var(--f-mono); font-weight: 700; letter-spacing: .3em; color: var(--turq); font-size: clamp(.8rem, 2.2vw, 1.1rem); margin-bottom: .75rem; }
+.hero__inner { position: relative; z-index: 3; width: min(640px, 100% - 1.5rem); margin: 0 auto; text-align: center; }
 
-.hero__title { position: relative; font-family: var(--f-display); font-weight: 400; text-transform: uppercase; line-height: .92; margin-bottom: 2rem; }
-.hero__title > span { display: block; }
-.t-bir {
-  font-size: clamp(4.5rem, 22vw, 14rem); color: var(--yellow); letter-spacing: .01em;
-  text-shadow: 4px 4px 0 var(--magenta), 8px 8px 0 var(--black), 0 0 35px rgba(248,243,43,.35);
+.poster {
+  position: relative; width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
+  container-type: inline-size;
+  border-radius: 26px; background: #FF4FC2;
+  box-shadow: 0 0 0 3px var(--p-yellow), 0 0 40px rgba(255,62,157,.55);
 }
-.t-pre { font-size: clamp(2.4rem, 11vw, 7rem); color: var(--paper); letter-spacing: .05em; text-shadow: 3px 3px 0 var(--purple); }
-.t-grad { 
-  font-size: clamp(1.8rem, 8.5vw, 5.2rem); 
-  color: var(--magenta); 
-  letter-spacing: .02em; 
-  margin-top: .25rem; 
-  text-shadow: 3px 3px 0 var(--black), 0 0 20px rgba(255,62,157,.5); 
-}
-.t-grad .t-day { color: var(--turq); margin-left: .15em; }
+.poster__bg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.poster__bg .pf { transform-box: fill-box; transform-origin: center; animation: bob 5s ease-in-out infinite; }
+.poster__bg .pf:nth-of-type(2n)   { animation-duration: 6.5s; animation-delay: -1.5s; }
+.poster__bg .pf:nth-of-type(3n)   { animation-duration: 7.5s; animation-delay: -3s; }
+.poster__bg .pf:nth-of-type(5n)   { animation-duration: 4.5s; animation-delay: -2.2s; }
 
-.hero__panel { max-width: 640px; margin: 0 auto 2rem; text-align: left; display: grid; gap: .55rem; }
-.hero__panel > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: .75rem; align-items: baseline; }
-.hero__panel dt { color: var(--yellow); font-weight: 700; letter-spacing: .12em; }
-.hero__panel dd { margin: 0; overflow-wrap: anywhere; }
-.hero__tag { 
-  position: relative;
-  z-index: 3;
-  font-family: var(--f-display); 
-  font-size: clamp(1.2rem, 3.8vw, 1.9rem); 
-  letter-spacing: .06em;
-  color: var(--magenta); 
-  text-shadow: 0 0 14px rgba(255,62,157,.7); 
-  margin-bottom: 2rem; 
-  transform: rotate(-1.5deg); 
+.poster__content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 17.2cqw; text-align: center;
+  font-family: "Lilita One", "Arial Black", Impact, sans-serif;
+  text-transform: uppercase;
 }
+.p-logo { display: flex; flex-direction: column; align-items: center; color: #fff; }
+.p-logo__main { font-size: 8.6cqw; line-height: 1; letter-spacing: .02em; }
+.p-logo__sub { font-family: "Poppins", Arial, sans-serif; font-weight: 600; font-size: 2.15cqw; line-height: 1.2; text-transform: none; letter-spacing: .01em; margin-top: .4cqw; }
+
+.p-title { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.p-90 {
+  display: block; margin-top: 2.2cqw;
+  font-size: 27cqw; line-height: .78; color: var(--p-yellow);
+  -webkit-text-stroke: .4cqw var(--ink); paint-order: stroke fill;
+  letter-spacing: .01em;
+}
+.p-forever {
+  display: block; margin-top: .2cqw;
+  font-size: 10.2cqw; line-height: .95; color: #fff; letter-spacing: .01em;
+  -webkit-text-stroke: .4cqw var(--ink); paint-order: stroke fill;
+}
+.p-pill {
+  display: inline-block; white-space: nowrap; border-radius: 999px;
+  line-height: 1.15; letter-spacing: .01em;
+}
+.p-pill--cyan   { margin-top: 2.6cqw; padding: .9cqw 3.8cqw; font-size: 5.3cqw; background: var(--p-cyan); color: var(--ink); }
+.p-pill--purple { margin-top: 1.5cqw; padding: .8cqw 3.8cqw; font-size: 5.6cqw; background: var(--p-purple); color: #fff; }
+.p-venue {
+  margin-top: 3cqw;
+  font-family: "Poppins", Arial, sans-serif; font-weight: 400;
+  font-size: 3.7cqw; line-height: 1.38; letter-spacing: .17em; color: #fff;
+}
+
+.hero__cta { margin-top: clamp(1.5rem, 4vw, 2.25rem); }
+.btn--poster {
+  font-family: "Lilita One", var(--f-display); font-weight: 400; letter-spacing: .04em;
+  font-size: 1.35rem; text-transform: uppercase;
+  background: var(--p-yellow); color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 999px;
+  padding: .8rem 2.4rem; box-shadow: 5px 5px 0 var(--p-cyan);
+}
+.btn--poster:hover { box-shadow: 2px 2px 0 var(--p-cyan); }
+.btn--poster:active { box-shadow: 0 0 0 var(--p-cyan); }
 
 .countdown { background: #0c0c0c; border-block: 4px solid var(--purple); }
 .countdown__boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 2vw, 1.5rem); max-width: 860px; margin: 2rem auto 0; }
@@ -317,9 +344,8 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   section { padding: 2.5rem 0; }
   .wrap { width: calc(100% - 1.5rem); }
 
-  .hero__inner { margin-top: 3.5rem; }
-  .hero__panel > div { grid-template-columns: 1fr; gap: 0; }
-  .hero__panel { padding: 1.25rem 1rem; }
+  .poster { border-radius: 20px; }
+  .hero__cta { width: 100%; }
 
   .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer__inner { flex-direction: column; gap: 1rem; }
@@ -433,27 +459,130 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 <!-- ============ SECTION 2: HERO / INVITATION ============ -->
 <header class="hero" id="top">
-  <div class="hero__checker" aria-hidden="true"></div>
-
   <div class="hero__inner">
-    <p class="hero__kicker">YOU'RE INVITED TO</p>
 
-    <h1 class="hero__title">
-      <span class="t-bir">BIR ALI</span>
-      <span class="t-pre">PRESCHOOL</span>
-      <span class="t-grad">GRADUATION<span class="t-day">DAY</span></span>
-    </h1>
+    <div class="poster">
+      <!-- background shapes + 90s doodles -->
+      <svg class="poster__bg" viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="spk" width="18" height="18" patternUnits="userSpaceOnUse">
+            <rect width="18" height="18" fill="#3D3A78"/>
+            <path d="M0 0H18M0 0V18" stroke="#5E5AA6" stroke-width="3"/>
+          </pattern>
+        </defs>
 
-    <dl class="panel panel--neon hero__panel">
-      <div><dt>DATE:</dt><dd data-config="dateText">21 November 2026</dd></div>
-      <div><dt>TIME:</dt><dd data-config="timeText">8.00 AM - 12.00 PM</dd></div>
-      <div><dt>VENUE:</dt><dd data-config="venue">Auditorium Permata Pintar</dd></div>
-      <div><dt>ADDRESS:</dt><dd data-config="address">UKM, Bangi</dd></div>
-    </dl>
+        <rect width="1080" height="1350" fill="#FF4FC2"/>
+        <circle cx="830" cy="290" r="430" fill="#FF5ECB"/>
+        <path d="M430 480 C610 620 860 660 1080 650 L1080 760 C850 770 600 720 400 560 Z" fill="#FF3CB8" opacity=".55"/>
+        <path d="M0 1035 C130 950 340 945 475 1055 C520 1095 525 1200 525 1350 L0 1350 Z" fill="#FF3CB8"/>
 
-    <p class="hero__tag">GROWING UP, THE 90S WAY!</p>
+        <!-- cassette -->
+        <g class="pf"><g transform="translate(215 218) rotate(-12)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="-165" y="-105" width="330" height="210" rx="22" fill="#AB8BFF"/>
+          <rect x="-125" y="-75" width="250" height="115" rx="10" fill="#FFB04F"/>
+          <rect x="-88" y="-52" width="176" height="64" rx="32" fill="#FF5BA8"/>
+          <circle cx="-48" cy="-20" r="20" fill="#fff"/><circle cx="-48" cy="-20" r="8" fill="#2E2A6B"/>
+          <circle cx="48" cy="-20" r="20" fill="#fff"/><circle cx="48" cy="-20" r="8" fill="#2E2A6B"/>
+          <rect x="-17" y="-34" width="34" height="28" fill="#fff" stroke-width="4"/>
+          <rect x="-6" y="-34" width="12" height="28" fill="#2E2A6B" stroke="none"/>
+          <path d="M-78 58 H78 L98 105 H-98 Z" fill="#FF5BA8"/>
+          <circle cx="-62" cy="84" r="7" fill="#2E2A6B" stroke="none"/><circle cx="62" cy="84" r="7" fill="#2E2A6B" stroke="none"/>
+        </g></g>
 
-    <a class="btn btn--yellow" href="#rsvp" data-scroll>CELEBRATE WITH US</a>
+        <!-- 3D glasses -->
+        <g class="pf"><g transform="translate(872 305) rotate(14)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M-150 -55 H150 V15 C150 50 128 62 100 62 H55 C38 62 28 50 20 36 C14 26 -14 26 -20 36 C-28 50 -38 62 -55 62 H-100 C-128 62 -150 50 -150 15 Z" fill="#fff"/>
+          <path d="M-128 -33 H-18 L-32 24 C-36 38 -46 40 -58 40 H-95 C-115 40 -128 30 -128 12 Z" fill="#FF5BA8" stroke-width="5"/>
+          <path d="M128 -33 H18 L32 24 C36 38 46 40 58 40 H95 C115 40 128 30 128 12 Z" fill="#6ED6E0" stroke-width="5"/>
+          <path d="M-100 -2 L-62 -18 M-92 18 L-52 2 M100 -2 L62 -18 M92 18 L52 2" stroke-width="4" fill="none"/>
+        </g></g>
+
+        <!-- lollipop -->
+        <g class="pf">
+          <line x1="132" y1="520" x2="80" y2="728" stroke="#2E2A6B" stroke-width="36" stroke-linecap="round"/>
+          <line x1="132" y1="520" x2="80" y2="728" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
+          <circle cx="148" cy="468" r="76" fill="#FF4FA6" stroke="#2E2A6B" stroke-width="6"/>
+          <path d="M112 430 Q146 400 190 426" fill="none" stroke="#2E2A6B" stroke-width="5" stroke-linecap="round"/>
+          <rect x="68" y="448" width="158" height="58" rx="26" fill="#FF7BBF" stroke="#2E2A6B" stroke-width="6" transform="rotate(10 148 477)"/>
+        </g>
+
+        <!-- headphones -->
+        <g class="pf" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M995 548 C1012 520 1050 512 1090 516" stroke="#2E2A6B" stroke-width="22"/>
+          <path d="M995 548 C974 590 966 622 963 650" stroke="#2E2A6B" stroke-width="22"/>
+          <path d="M995 548 C1012 520 1050 512 1090 516" stroke="#6ED6E0" stroke-width="11"/>
+          <path d="M995 548 C974 590 966 622 963 650" stroke="#6ED6E0" stroke-width="11"/>
+          <g transform="rotate(8 958 680)" stroke="#2E2A6B" stroke-width="6">
+            <ellipse cx="960" cy="682" rx="44" ry="68" fill="#FFB04F"/>
+            <ellipse cx="964" cy="682" rx="19" ry="42"/>
+            <rect x="910" y="650" width="30" height="72" rx="12" fill="#6ED6E0" stroke-width="5"/>
+          </g>
+        </g>
+
+        <!-- boombox -->
+        <g class="pf"><g transform="translate(268 1188) rotate(-9)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M-95 -70 V-105 Q-95 -125 -75 -125 H75 Q95 -125 95 -105 V-70" fill="none" stroke-width="24"/>
+          <path d="M-95 -70 V-105 Q-95 -125 -75 -125 H75 Q95 -125 95 -105 V-70" fill="none" stroke="#AB8BFF" stroke-width="12"/>
+          <rect x="-40" y="-134" width="80" height="22" rx="6" fill="#FF5BA8" stroke-width="4"/>
+          <rect x="-190" y="-85" width="380" height="172" rx="40" fill="#FFB04F"/>
+          <circle cx="-120" cy="2" r="62" fill="url(#spk)"/>
+          <circle cx="120" cy="2" r="62" fill="url(#spk)"/>
+          <rect x="-62" y="-80" width="124" height="18" rx="4" fill="#FF5BA8" stroke-width="4"/>
+          <path d="M-46 -76 V-66 M-30 -76 V-66 M-14 -76 V-66 M2 -76 V-66 M18 -76 V-66 M34 -76 V-66 M48 -76 V-66" stroke-width="3" fill="none"/>
+          <rect x="-54" y="-54" width="108" height="72" rx="8" fill="#6ED6E0" stroke-width="4"/>
+          <rect x="-36" y="-40" width="72" height="40" rx="6" fill="#FF5BA8" stroke-width="4"/>
+          <circle cx="-17" cy="-20" r="7" fill="#2E2A6B" stroke="none"/><circle cx="17" cy="-20" r="7" fill="#2E2A6B" stroke="none"/>
+          <circle cx="-44" cy="52" r="8" fill="#fff" stroke-width="4"/><circle cx="-21" cy="52" r="8" fill="#fff" stroke-width="4"/><circle cx="2" cy="52" r="8" fill="#fff" stroke-width="4"/><circle cx="25" cy="52" r="8" fill="#fff" stroke-width="4"/><circle cx="48" cy="52" r="8" fill="#fff" stroke-width="4"/>
+        </g></g>
+
+        <!-- roller skate -->
+        <g class="pf"><g transform="translate(868 1140)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+          <polygon points="-120,82 -84,96 -108,128 -142,108" fill="#6ED6E0"/>
+          <path d="M-30 -150 L82 -158 L122 -40 C128 10 122 50 92 62 L-92 80 C-128 82 -138 42 -116 16 C-96 -8 -62 -20 -50 -50 Z" fill="#FFB04F"/>
+          <path d="M72 -42 L132 -48 L138 6 L82 14 Z" fill="#AB8BFF"/>
+          <path d="M-30 -150 L32 -156 L26 -70 Q10 -36 -40 -20 L-88 -4 Q-62 -30 -50 -50 Z" fill="#AB8BFF"/>
+          <path d="M-14 -112 L22 -118 M-16 -84 L22 -92 M-30 -56 L18 -66" stroke-width="4" fill="none"/>
+          <path d="M-30 -128 C-78 -158 -86 -108 -34 -114 C-70 -96 -86 -100 -90 -128" fill="none" stroke-width="4"/>
+          <rect x="-98" y="78" width="228" height="20" rx="7" fill="#3D3A78" transform="rotate(-6 16 88)"/>
+          <circle cx="-52" cy="122" r="37" fill="#FF5BA8"/><circle cx="-52" cy="122" r="13" fill="#fff" stroke-width="5"/>
+          <circle cx="98" cy="108" r="37" fill="#FF5BA8"/><circle cx="98" cy="108" r="13" fill="#fff" stroke-width="5"/>
+        </g></g>
+
+        <!-- stars -->
+        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(960 115) rotate(15)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
+        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(860 892) rotate(-10) scale(.62)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="7" stroke-linejoin="round"/></g>
+
+        <!-- triangles -->
+        <g class="pf"><path d="M180 878 L268 850 L218 928 Z" fill="#AB8BFF" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
+        <g class="pf"><path d="M515 1226 L570 1138 L607 1232 Z" fill="#6ED6E0" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
+
+        <!-- confetti dots -->
+        <rect x="677" y="120" width="28" height="28" rx="10" fill="#FFE9F7"/>
+        <rect x="876" y="526" width="26" height="26" rx="9" fill="#FFE9F7"/>
+        <rect x="977" y="832" width="28" height="28" rx="10" fill="#FFE9F7"/>
+        <rect x="135" y="1014" width="28" height="28" rx="10" fill="#FFE9F7"/>
+        <rect x="660" y="1092" width="24" height="24" rx="9" fill="#FFE9F7"/>
+      </svg>
+
+      <div class="poster__content">
+        <div class="p-logo" aria-hidden="true">
+          <span class="p-logo__main">BIR ALI</span>
+          <span class="p-logo__sub">The Sunnah Preschool</span>
+        </div>
+
+        <h1 class="p-title">
+          <span class="sr-only">You're invited to Bir Ali PreSchool Graduation Day — </span>
+          <span class="p-90" aria-hidden="true">90’S</span>
+          <span class="p-forever">FOREVER</span>
+        </h1>
+
+        <p class="p-pill p-pill--cyan">TAKHARRUJ &amp; APPRECIATION</p>
+        <p class="p-pill p-pill--purple">21 NOV 2026</p>
+        <p class="p-venue">AUDITORIUM PERMATA<br>UKM, BANGI</p>
+      </div>
+    </div>
+
+    <a class="btn btn--poster hero__cta" href="#rsvp" data-scroll>CELEBRATE WITH US</a>
   </div>
 </header>
 
@@ -590,6 +719,8 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   </div>
 </footer>
 
+<div id="yt-wrap" aria-hidden="true" style="position:fixed;right:0;bottom:0;width:200px;height:200px;opacity:.01;z-index:-1;pointer-events:none"><div id="yt-player"></div></div>
+
 <div class="dock" id="dock">
   <a class="btn btn--yellow dock__rsvp" href="#rsvp" data-scroll>RSVP NOW</a>
   <button type="button" class="dock__music" id="music-btn" aria-pressed="false" aria-label="Toggle background music">
@@ -610,6 +741,7 @@ const CONFIG = {
   rsvpDeadline: "",
   dressCode: "",
   notes: "",
+  youtubeId: "le0Y2Wf-ND0",   // lagu Kru - Mengerti (YouTube)
   musicSrc: "",
   gallery: [
     { src: "p1.webp", caption: "90's Rock Kapak",    alt: "90's Rock Kapak", color: "#FF3E9D" },
@@ -785,36 +917,81 @@ function initMusicEngine() {
     }
   }
 
-  async function start() {
-    try {
-      if (CONFIG.musicSrc) {
-        audioEl = audioEl || Object.assign(new Audio(CONFIG.musicSrc), { loop: true, volume: 0.5 });
-        await audioEl.play();
-      } else {
-        if (!ctx) {
-          ctx = new (window.AudioContext || window.webkitAudioContext)();
-          master = ctx.createGain(); master.gain.value = 0.3; master.connect(ctx.destination);
-          noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
-          const d = noiseBuf.getChannelData(0);
-          for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-        }
-        await ctx.resume();
-        step = 0; nextTime = ctx.currentTime + 0.05;
-        clearInterval(timer); timer = setInterval(scheduler, 25);
-      }
-      playing = true; setUI(true);
-    } catch (err) {
-      console.error("Music playback failed:", err);
-      playing = false; setUI(false);
+  function startSynth() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      master = ctx.createGain(); master.gain.value = 0.3; master.connect(ctx.destination);
+      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.5, ctx.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     }
+    return ctx.resume().then(() => {
+      step = 0; nextTime = ctx.currentTime + 0.05;
+      clearInterval(timer); timer = setInterval(scheduler, 25);
+    });
+  }
+
+  let yt = null, ytReady = false, ytFailed = false, ytCheck = null;
+  function initYT() {
+    if (!CONFIG.youtubeId) return;
+    const make = () => {
+      try {
+        yt = new YT.Player("yt-player", {
+          width: "200", height: "200", videoId: CONFIG.youtubeId,
+          playerVars: { controls: 0, loop: 1, playlist: CONFIG.youtubeId, playsinline: 1, rel: 0, origin: location.protocol.startsWith("http") ? location.origin : undefined },
+          events: {
+            onReady: () => { ytReady = true; },
+            onError: (e) => { ytFailed = true; console.warn("YouTube error", e.data); if (playing) fallbackSynth(); }
+          }
+        });
+      } catch (e) { ytFailed = true; }
+    };
+    if (window.YT && YT.Player) return make();
+    window.onYouTubeIframeAPIReady = make;
+    const sc = document.createElement("script");
+    sc.src = "https://www.youtube.com/iframe_api";
+    sc.onerror = () => { ytFailed = true; };
+    document.head.appendChild(sc);
+  }
+
+  function fallbackSynth() {
+    if (yt && yt.pauseVideo) { try { yt.pauseVideo(); } catch (e) {} }
+    startSynth().then(() => { playing = true; setUI(true); }).catch(() => {});
+  }
+
+  function start() {
+    // YouTube dulu — mesti dipanggil terus dalam klik pengguna
+    if (CONFIG.youtubeId && ytReady && !ytFailed) {
+      try {
+        yt.unMute(); yt.setVolume(70); yt.playVideo();
+        playing = true; setUI(true);
+        clearTimeout(ytCheck);
+        ytCheck = setTimeout(() => {
+          let st = -1; try { st = yt.getPlayerState(); } catch (e) {}
+          if (playing && st !== 1 && st !== 3) { console.warn("YouTube tidak bermain, guna muzik asal"); fallbackSynth(); }
+        }, 3500);
+        return;
+      } catch (e) { console.warn(e); }
+    }
+    // fail audio (jika ada), kemudian muzik retro asal
+    if (CONFIG.musicSrc) {
+      audioEl = audioEl || Object.assign(new Audio(CONFIG.musicSrc), { loop: true, volume: 0.6 });
+      audioEl.play().then(() => { playing = true; setUI(true); }).catch(() => fallbackSynth());
+      return;
+    }
+    playing = true; setUI(true);
+    startSynth().catch((err) => { console.error(err); playing = false; setUI(false); });
   }
 
   function stop() {
-    clearInterval(timer);
+    clearInterval(timer); clearTimeout(ytCheck);
     if (audioEl) audioEl.pause();
+    if (yt && yt.pauseVideo) yt.pauseVideo();
     if (ctx) ctx.suspend();
     playing = false; setUI(false);
   }
+
+  initYT();
 
   openBtn.addEventListener("click", () => {
     welcomeScreen.classList.add("is-hidden");
@@ -844,5 +1021,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initMusicEngine();
 });
 </script>
+
 </body>
 </html>
