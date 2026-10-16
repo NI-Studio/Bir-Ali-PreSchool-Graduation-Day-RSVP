@@ -345,28 +345,33 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   .wrap { width: calc(100% - 1.5rem); }
 
   /* HERO: full-bleed poster (tiada kad) — penuh kiri, kanan, atas, bawah */
-  .hero { padding: 0; }
+  .hero {
+    padding: 0;
+    --dock: calc(4.5rem + env(safe-area-inset-bottom));
+    --cta-h: 3.25rem; --cta-gap: 1.1rem;
+    --art-top: max(1rem, calc((100svh - var(--dock) - 125vw - var(--cta-gap) - var(--cta-h)) / 2));
+  }
   .hero__inner { width: 100%; max-width: none; }
   .poster {
-    --art-top: calc(1.25rem + env(safe-area-inset-top));
+    /* blok (artwork + butang) duduk tengah: ruang atas = ruang bawah (tolak bar dock) */
     aspect-ratio: auto; width: 100%;
-    min-height: max(100vh, calc(125vw + var(--art-top) + 8.5rem));
-    min-height: max(100svh, calc(125vw + var(--art-top) + 8.5rem));
+    min-height: max(100vh, calc(125vw + var(--cta-gap) + var(--cta-h) + var(--dock) + 2rem));
+    min-height: max(100svh, calc(125vw + var(--cta-gap) + var(--cta-h) + var(--dock) + 2rem));
     border-radius: 0; box-shadow: none;
     background: linear-gradient(#FF5ECB 0, #FF4FC2 25%, #FF4FC2 75%, #FF3CB8 100%);
   }
-  /* artwork + teks diletak rapat ke atas, ruang bawah untuk butang */
   .poster__bg { top: var(--art-top); bottom: auto; height: 125vw; }
   .poster__content {
     inset: auto; left: 0; right: 0; top: var(--art-top); height: 125cqw;
-    padding-top: 12.5cqw; /* teks naik ke atas sikit */
+    padding-top: 12.5cqw;
   }
   .btn.hero__cta {
     position: absolute; z-index: 4; left: 50%; right: auto; transform: translateX(-50%);
     width: min(78%, 300px); margin: 0; text-align: center; white-space: nowrap;
-    font-size: 1.1rem; padding: .7rem 1rem;
+    font-size: 1.1rem; padding: 0 1rem; height: var(--cta-h);
+    display: flex; align-items: center; justify-content: center;
     box-shadow: 4px 4px 0 var(--p-cyan);
-    bottom: calc(5.25rem + env(safe-area-inset-bottom));
+    top: calc(var(--art-top) + 125vw + var(--cta-gap));
   }
   .btn.hero__cta:active { transform: translateX(-50%) translate(3px, 3px); box-shadow: 1px 1px 0 var(--p-cyan); }
 
@@ -538,7 +543,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
           <g transform="rotate(8 958 680)" stroke="#2E2A6B" stroke-width="6">
             <ellipse cx="960" cy="682" rx="44" ry="68" fill="#FFB04F"/>
             <ellipse cx="964" cy="682" rx="19" ry="42"/>
-            <rect x="910" y="650" width="30" height="72" rx="12" fill="#6ED6E0" stroke-width="5"/>
           </g>
         </g>
 
@@ -560,9 +564,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
         <!-- roller skate -->
         <g class="pf"><g transform="translate(868 1140)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
-          <polygon points="-120,82 -84,96 -108,128 -142,108" fill="#6ED6E0"/>
           <path d="M-30 -150 L82 -158 L122 -40 C128 10 122 50 92 62 L-92 80 C-128 82 -138 42 -116 16 C-96 -8 -62 -20 -50 -50 Z" fill="#FFB04F"/>
-          <path d="M72 -42 L132 -48 L138 6 L82 14 Z" fill="#AB8BFF"/>
           <path d="M-30 -150 L32 -156 L26 -70 Q10 -36 -40 -20 L-88 -4 Q-62 -30 -50 -50 Z" fill="#AB8BFF"/>
           <path d="M-14 -112 L22 -118 M-16 -84 L22 -92 M-30 -56 L18 -66" stroke-width="4" fill="none"/>
           <path d="M-30 -128 C-78 -158 -86 -108 -34 -114 C-70 -96 -86 -100 -90 -128" fill="none" stroke-width="4"/>
@@ -954,47 +956,61 @@ function initMusicEngine() {
     });
   }
 
-  let yt = null, ytReady = false, ytFailed = false, ytCheck = null;
+  let yt = null, ytReady = false, ytFailed = false, ytWanted = false, ytWatch = null;
+
+  function ytPlay() {
+    try { yt.unMute(); yt.setVolume(70); yt.playVideo(); } catch (e) { console.warn(e); }
+  }
+
   function initYT() {
     if (!CONFIG.youtubeId) return;
     const make = () => {
+      if (yt) return;
       try {
+        const pv = { controls: 0, loop: 1, playlist: CONFIG.youtubeId, playsinline: 1, rel: 0, enablejsapi: 1 };
+        if (location.protocol.startsWith("http")) pv.origin = location.origin;
         yt = new YT.Player("yt-player", {
-          width: "200", height: "200", videoId: CONFIG.youtubeId,
-          playerVars: { controls: 0, loop: 1, playlist: CONFIG.youtubeId, playsinline: 1, rel: 0, origin: location.protocol.startsWith("http") ? location.origin : undefined },
+          width: "200", height: "200", videoId: CONFIG.youtubeId, playerVars: pv,
           events: {
-            onReady: () => { ytReady = true; },
+            // pemain siap SELEPAS pengguna tekan butang? terus mainkan (tak jatuh ke lagu asal)
+            onReady: () => { ytReady = true; if (ytWanted && playing) ytPlay(); },
+            onStateChange: (e) => {
+              if (!ytWanted || !playing) return;
+              if (e.data === 1) clearTimeout(ytWatch);                 // sedang bermain
+              else if (e.data === 0 || e.data === 5 || e.data === -1) ytPlay(); // tamat / cued / belum mula
+            },
             onError: (e) => { ytFailed = true; console.warn("YouTube error", e.data); if (playing) fallbackSynth(); }
           }
         });
-      } catch (e) { ytFailed = true; }
+      } catch (err) { ytFailed = true; console.warn(err); }
     };
     if (window.YT && YT.Player) return make();
-    window.onYouTubeIframeAPIReady = make;
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => { if (typeof prev === "function") prev(); make(); };
     const sc = document.createElement("script");
     sc.src = "https://www.youtube.com/iframe_api";
-    sc.onerror = () => { ytFailed = true; };
+    sc.async = true;
+    sc.onerror = () => { ytFailed = true; if (playing && ytWanted) fallbackSynth(); };
     document.head.appendChild(sc);
   }
 
   function fallbackSynth() {
+    ytWanted = false; clearTimeout(ytWatch);
     if (yt && yt.pauseVideo) { try { yt.pauseVideo(); } catch (e) {} }
     startSynth().then(() => { playing = true; setUI(true); }).catch(() => {});
   }
 
   function start() {
-    // YouTube dulu — mesti dipanggil terus dalam klik pengguna
-    if (CONFIG.youtubeId && ytReady && !ytFailed) {
-      try {
-        yt.unMute(); yt.setVolume(70); yt.playVideo();
-        playing = true; setUI(true);
-        clearTimeout(ytCheck);
-        ytCheck = setTimeout(() => {
-          let st = -1; try { st = yt.getPlayerState(); } catch (e) {}
-          if (playing && st !== 1 && st !== 3) { console.warn("YouTube tidak bermain, guna muzik asal"); fallbackSynth(); }
-        }, 3500);
-        return;
-      } catch (e) { console.warn(e); }
+    // YouTube dulu. Jika pemain belum siap (kali pertama buka), tunggu — jangan terus guna lagu asal.
+    if (CONFIG.youtubeId && !ytFailed) {
+      ytWanted = true; playing = true; setUI(true);
+      if (ytReady) ytPlay();
+      clearTimeout(ytWatch);
+      ytWatch = setTimeout(() => {
+        let st = -1; try { st = yt.getPlayerState(); } catch (e) {}
+        if (playing && ytWanted && st !== 1) { console.warn("YouTube tidak bermain, guna muzik asal"); fallbackSynth(); }
+      }, 12000);
+      return;
     }
     // fail audio (jika ada), kemudian muzik retro asal
     if (CONFIG.musicSrc) {
@@ -1007,9 +1023,10 @@ function initMusicEngine() {
   }
 
   function stop() {
-    clearInterval(timer); clearTimeout(ytCheck);
+    clearInterval(timer); clearTimeout(ytWatch);
+    ytWanted = false;
     if (audioEl) audioEl.pause();
-    if (yt && yt.pauseVideo) yt.pauseVideo();
+    if (yt && yt.pauseVideo) { try { yt.pauseVideo(); } catch (e) {} }
     if (ctx) ctx.suspend();
     playing = false; setUI(false);
   }
