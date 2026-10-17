@@ -345,33 +345,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   section { padding: 2.5rem 0; }
   .wrap { width: calc(100% - 1.5rem); }
 
-  /* HERO: full-bleed poster (tiada kad) — penuh kiri, kanan, atas, bawah */
-  .hero {
-    padding: 0;
-    --dock: calc(4.5rem + env(safe-area-inset-bottom));
-    --cta-h: 0rem; --cta-gap: .9rem; --cue-h: 3.1rem;
-    /* artwork 4:5 — lebar ikut skrin, tapi dihadkan supaya tinggi sentiasa muat dalam 1 skrin */
-    --art-w: min(100vw, max(220px, calc((100svh - var(--dock) - var(--cue-h) - var(--cta-gap) - 1.5rem) * .8)));
-    --art-h: calc(var(--art-w) * 1.25);
-    --art-top: max(.75rem, calc((100svh - var(--dock) - var(--art-h) - var(--cta-gap) - var(--cue-h)) / 2));
-  }
-  .hero__inner { width: 100%; max-width: none; }
-  .poster {
-    /* blok (artwork + butang) duduk tengah: ruang atas = ruang bawah (tolak bar dock) */
-    aspect-ratio: auto; width: 100%;
-    min-height: 100vh;
-    min-height: 100svh;
-    border-radius: 0; box-shadow: none;
-    background: #FF4FC2;   /* sama dengan warna dasar artwork supaya tiada garisan sambungan */
-  }
-  .poster__bg { top: var(--art-top); bottom: auto; left: 50%; right: auto; width: var(--art-w); height: var(--art-h); transform: translateX(-50%); }
-  .poster__content {
-    inset: auto; left: 50%; right: auto; transform: translateX(-50%);
-    top: var(--art-top); width: var(--art-w); height: var(--art-h);
-    padding-top: calc(var(--art-w) * .125);
-    container-type: inline-size;
-  }
-
   .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer__inner { flex-direction: column; gap: 1rem; }
   .btn { font-size: 1.15rem; padding: .75rem 1.25rem; width: 100%; }
@@ -624,12 +597,6 @@ main .btn--turq { background: var(--p-cyan); }
 }
 .hero__scroll svg { width: 26px; height: 26px; animation: scrollcue 1.3s ease-in-out infinite; }
 @keyframes scrollcue { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
-@media (max-width: 640px) {
-  .hero__scroll {
-    position: absolute; left: 50%; transform: translateX(-50%); margin: 0; z-index: 4;
-    top: auto; bottom: calc(var(--dock) + .15rem);
-  }
-}
 
 /* celebrate heading: "GROWING UP," on line 1, "THE 90s WAY" together on line 2 */
 #celebrate-title { text-wrap: balance; }
@@ -641,6 +608,24 @@ main .btn--turq { background: var(--p-cyan); }
 .session, .session .info__main, .session .info__sub { text-align: center; }
 .session .info__sub { margin-inline: auto; text-wrap: balance; }
 .session .info__main { text-wrap: balance; }
+
+/* ===== HERO / first screen — one layout for every device =====
+   poster fills the whole first screen; the artwork is fitted by fitHero() (JS) */
+.hero { padding: 0; --dock: calc(4.5rem + env(safe-area-inset-bottom)); }
+.hero__inner { width: 100%; max-width: none; }
+.poster {
+  aspect-ratio: auto; width: 100%; min-height: 100vh; min-height: 100svh;
+  border-radius: 0; box-shadow: none; background: #FF4FC2;
+}
+.poster__content {
+  inset: auto; left: 50%; right: auto; transform: translateX(-50%); top: 0;
+  width: min(100%, 80svh); height: auto; padding-top: 12.5cqw;
+  container-type: inline-size;
+}
+.hero__scroll {
+  position: absolute; left: 50%; transform: translateX(-50%); margin: 0; z-index: 4;
+  bottom: calc(var(--dock) + .15rem);
+}
 </style>
 </head>
 <body class="is-locked">
@@ -701,6 +686,7 @@ main .btn--turq { background: var(--p-cyan); }
         <g id="art-top">
         <circle cx="830" cy="290" r="430" fill="#FF5ECB"/>
         <path d="M430 480 C610 620 860 660 1080 650 L1080 760 C850 770 600 720 400 560 Z" fill="#FF3CB8" opacity=".55"/>
+        <rect x="1080" y="650" width="4000" height="110" fill="#FF3CB8" opacity=".55"/>
 
         <!-- cassette -->
         <g class="pf"><g transform="translate(215 218) rotate(-12)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
@@ -760,6 +746,7 @@ main .btn--turq { background: var(--p-cyan); }
         <g id="art-bottom">
         <path d="M0 1035 C130 950 340 945 475 1055 C520 1095 525 1200 525 1350 L0 1350 Z" fill="#FF3CB8"/>
         <rect x="0" y="1340" width="525" height="4000" fill="#FF3CB8"/>
+        <rect x="-4000" y="1035" width="4000" height="4000" fill="#FF3CB8"/>
 
         <!-- boombox -->
         <g class="pf"><g transform="translate(268 1188) rotate(-9)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
@@ -900,7 +887,7 @@ main .btn--turq { background: var(--p-cyan); }
           <div class="session">
             <p class="session__name">SECOND JAM</p>
             <p class="info__main">2.00 PM - 6.00 PM</p>
-            <p class="info__sub">Bir Ali Bandar Seri Putera</p>
+            <p class="info__sub">Bir Ali Bandar Seri Putra</p>
           </div>
         </div>
       </div>
@@ -1264,12 +1251,6 @@ function initMusicEngine() {
     const svg = $(".poster__bg"), content = $(".poster__content"), poster = $(".poster"), cue = $(".hero__scroll");
     const gTop = $("#art-top"), gMid = $("#art-mid"), gBottom = $("#art-bottom");
     if (!svg || !content || !poster || !cue || !gTop || !gMid || !gBottom) return;
-    if (!window.matchMedia("(max-width: 640px)").matches) {
-      svg.removeAttribute("style"); content.removeAttribute("style");
-      svg.setAttribute("viewBox", "0 0 1080 1350"); svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-      gTop.removeAttribute("transform"); gMid.removeAttribute("transform"); gBottom.removeAttribute("transform");
-      return;
-    }
     const W = poster.clientWidth, H = poster.clientHeight;
     const availH = Math.max(240, cue.offsetTop - 4);          // area above the scroll cue
     const artW = Math.min(W, availH * 0.8);                   // artwork is 4:5
