@@ -906,7 +906,7 @@ main .btn--turq { background: var(--p-cyan); }
   </div>
 </section>
 
-<!-- ============ SECTION 6: RSVP (GOOGLE FORM) ============ -->
+<!-- ============ SECTION 6: RSVP ============ -->
 <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
   <div class="wrap rsvp__layout">
     <div class="rsvp__intro">
@@ -920,10 +920,10 @@ main .btn--turq { background: var(--p-cyan); }
         ATTENDANCE CONFIRMATION
       </h3>
       <p style="margin-bottom: 1.75rem; font-size: 1.05rem;">
-        Please click the button below to complete the attendance confirmation form (Google Form).
+        Please click the button below to confirm your attendance.
       </p>
-      <a class="btn btn--magenta" href="ENTER_YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">
-        FILL OUT RSVP FORM (GOOGLE FORM)
+      <a class="btn btn--magenta" id="rsvp-btn" href="#rsvp" target="_blank" rel="noopener noreferrer">
+        CONFIRM ATTENDANCE
       </a>
     </div>
   </div>
@@ -969,6 +969,7 @@ const CONFIG = {
   dateText: "21 November 2026",
   venue: "Auditorium Permata Pintar",
   address: "UKM, Bangi",
+  rsvpLink: "",               // letak link RSVP di sini
   rsvpDeadline: "",
   dressCode: "",
   notes: "",
@@ -993,6 +994,14 @@ function applyConfig() {
   });
   $("#dress-panel").hidden = !CONFIG.dressCode;
   $("#notes-panel").hidden = !CONFIG.notes;
+
+  const rsvpBtn = $("#rsvp-btn");
+  if (CONFIG.rsvpLink) {
+    rsvpBtn.href = CONFIG.rsvpLink;
+  } else {
+    rsvpBtn.removeAttribute("target");
+    rsvpBtn.addEventListener("click", (e) => e.preventDefault());
+  }
 
   const btn = $("#directions-btn");
   if (CONFIG.address) {
