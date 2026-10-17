@@ -1275,7 +1275,7 @@ function initMusicEngine() {
     svg.setAttribute("viewBox", (-dx) + " 0 " + vbW + " " + vbH);
     svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
     svg.style.cssText = "left:0;right:auto;top:0;width:" + W + "px;height:" + H + "px;transform:none;-webkit-mask-image:none;mask-image:none";
-    gTop.setAttribute("transform", "translate(0 " + a + ")");
+    gTop.setAttribute("transform", "translate(0 " + (a - 10 / k) + ")");   // cassette / glasses / lollipop: 10px higher
     gBottom.setAttribute("transform", "translate(0 " + b + ")");
     const place = (shift) => {
       gMid.setAttribute("transform", "translate(0 " + (a + shift / k) + ")");
