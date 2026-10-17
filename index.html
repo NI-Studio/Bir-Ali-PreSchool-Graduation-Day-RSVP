@@ -920,10 +920,10 @@ main .btn--turq { background: var(--p-cyan); }
         ATTENDANCE CONFIRMATION
       </h3>
       <p style="margin-bottom: 1.75rem; font-size: 1.05rem;">
-        Please click the button below to confirm your attendance.
+        Please click the button below to complete the attendance confirmation form.
       </p>
-      <a class="btn btn--magenta" id="rsvp-btn" href="#rsvp" target="_blank" rel="noopener noreferrer">
-        CONFIRM ATTENDANCE
+      <a class="btn btn--magenta" href="ENTER_YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">
+        FILL OUT RSVP FORM
       </a>
     </div>
   </div>
@@ -969,7 +969,6 @@ const CONFIG = {
   dateText: "21 November 2026",
   venue: "Auditorium Permata Pintar",
   address: "UKM, Bangi",
-  rsvpLink: "",               // letak link RSVP di sini
   rsvpDeadline: "",
   dressCode: "",
   notes: "",
@@ -994,14 +993,6 @@ function applyConfig() {
   });
   $("#dress-panel").hidden = !CONFIG.dressCode;
   $("#notes-panel").hidden = !CONFIG.notes;
-
-  const rsvpBtn = $("#rsvp-btn");
-  if (CONFIG.rsvpLink) {
-    rsvpBtn.href = CONFIG.rsvpLink;
-  } else {
-    rsvpBtn.removeAttribute("target");
-    rsvpBtn.addEventListener("click", (e) => e.preventDefault());
-  }
 
   const btn = $("#directions-btn");
   if (CONFIG.address) {
