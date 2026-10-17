@@ -199,7 +199,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: 0; opacity: .14; background-image: var(--grain); background-size: 260px; mix-blend-mode: screen;
 }
-.hero__inner { position: relative; z-index: 3; width: min(640px, 100% - 1.5rem); margin: 0 auto; text-align: center; }
+.hero__inner { position: relative; z-index: 3; width: min(640px, 100% - 1.5rem, max(260px, calc((100svh - 11rem) * .8))); margin: 0 auto; text-align: center; }
 
 .poster {
   position: relative; width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
@@ -349,22 +349,27 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
   .hero {
     padding: 0;
     --dock: calc(4.5rem + env(safe-area-inset-bottom));
-    --cta-h: 0rem; --cta-gap: .9rem;
-    --art-top: max(.75rem, calc((100svh - var(--dock) - 125vw - var(--cta-gap) - var(--cta-h) - var(--cue-h, 3.1rem)) / 2));
+    --cta-h: 0rem; --cta-gap: .9rem; --cue-h: 3.1rem;
+    /* artwork 4:5 — lebar ikut skrin, tapi dihadkan supaya tinggi sentiasa muat dalam 1 skrin */
+    --art-w: min(100vw, max(220px, calc((100svh - var(--dock) - var(--cue-h) - var(--cta-gap) - 1.5rem) * .8)));
+    --art-h: calc(var(--art-w) * 1.25);
+    --art-top: max(.75rem, calc((100svh - var(--dock) - var(--art-h) - var(--cta-gap) - var(--cue-h)) / 2));
   }
   .hero__inner { width: 100%; max-width: none; }
   .poster {
     /* blok (artwork + butang) duduk tengah: ruang atas = ruang bawah (tolak bar dock) */
     aspect-ratio: auto; width: 100%;
-    min-height: max(100vh, calc(125vw + var(--cta-gap) + var(--cta-h) + var(--cue-h, 3.1rem) + var(--dock) + 2rem));
-    min-height: max(100svh, calc(125vw + var(--cta-gap) + var(--cta-h) + var(--cue-h, 3.1rem) + var(--dock) + 2rem));
+    min-height: 100vh;
+    min-height: 100svh;
     border-radius: 0; box-shadow: none;
     background: linear-gradient(#FF5ECB 0, #FF4FC2 25%, #FF4FC2 75%, #FF3CB8 100%);
   }
-  .poster__bg { top: var(--art-top); bottom: auto; height: 125vw; }
+  .poster__bg { top: var(--art-top); bottom: auto; left: 50%; right: auto; width: var(--art-w); height: var(--art-h); transform: translateX(-50%); }
   .poster__content {
-    inset: auto; left: 0; right: 0; top: var(--art-top); height: 125cqw;
-    padding-top: 12.5cqw;
+    inset: auto; left: 50%; right: auto; transform: translateX(-50%);
+    top: var(--art-top); width: var(--art-w); height: var(--art-h);
+    padding-top: calc(var(--art-w) * .125);
+    container-type: inline-size;
   }
 
   .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -620,12 +625,15 @@ main .btn--turq { background: var(--p-cyan); }
 .hero__scroll svg { width: 26px; height: 26px; animation: scrollcue 1.3s ease-in-out infinite; }
 @keyframes scrollcue { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
 @media (max-width: 640px) {
-  .hero { --cue-h: 3.1rem; }
   .hero__scroll {
     position: absolute; left: 50%; transform: translateX(-50%); margin: 0; z-index: 4;
-    top: calc(var(--art-top) + 125vw + var(--cta-gap) + var(--cta-h) + .55rem);
+    top: calc(var(--art-top) + var(--art-h) + var(--cta-gap) - .35rem);
   }
 }
+
+/* celebrate heading: "GROWING UP," on line 1, "THE 90s WAY" together on line 2 */
+#celebrate-title { text-wrap: balance; }
+#celebrate-title .brush { display: block; white-space: nowrap; }
 </style>
 </head>
 <body class="is-locked">
@@ -819,7 +827,7 @@ main .btn--turq { background: var(--p-cyan); }
 <!-- ============ SECTION 4: GRADUATION CELEBRATION ============ -->
 <section class="celebrate" id="celebrate" aria-labelledby="celebrate-title">
   <div class="wrap">
-    <h2 id="celebrate-title" class="h-display h-display--magenta">GROWING UP, <span class="brush brush--turq">THE 90s WAY</span></h2>
+    <h2 id="celebrate-title" class="h-display h-display--magenta">GROWING UP,<span class="brush brush--turq">THE 90s WAY</span></h2>
     <p class="celebrate__sub">From Little Steps to Big Dreams</p>
     <p class="lead">A little throwback to the days of big dreams, happy hearts and unforgettable childhood memories. Join us as we celebrate how far our little graduates have come and the exciting adventures that await them.</p>
 
