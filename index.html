@@ -975,8 +975,8 @@ const CONFIG = {
   rsvpDeadline: "",
   dressCode: "",
   notes: "",
-  youtubeId: "-EKMf9hTnXE",   // lagu latar (YouTube)
-  musicSrc: "",
+  youtubeId: "",   // kosong: tiada lagu YouTube. Boleh isi ID video jika mahu fallback
+  musicSrc: "lagu.mp3",   // fail audio sendiri (letak dalam folder yang sama). Jika tiada, guna YouTube
   gallery: [
     { src: "p1.webp", caption: "90's Rock Kapak",    alt: "90's Rock Kapak", color: "#FF5BA8" },
     { src: "p2.webp", caption: "90's Boy Band",      alt: "90's Boy Band", color: "#6ED6E0" },
@@ -1209,8 +1209,16 @@ function initMusicEngine() {
     startSynth().then(() => { playing = true; setUI(true); }).catch(() => {});
   }
 
+  let audioFailed = false;
+
   function start() {
-    // YouTube dulu. Jika pemain belum siap (kali pertama buka), tunggu — jangan terus guna lagu asal.
+    // 1) Fail audio sendiri (musicSrc) dahulu — tiada iklan. Jika gagal dimuat/dimainkan, jatuh ke YouTube.
+    if (CONFIG.musicSrc && !audioFailed) {
+      audioEl = audioEl || Object.assign(new Audio(CONFIG.musicSrc), { loop: true, volume: 0.6 });
+      audioEl.play().then(() => { playing = true; setUI(true); }).catch(() => { audioFailed = true; audioEl = null; start(); });
+      return;
+    }
+    // 2) YouTube. Jika pemain belum siap (kali pertama buka), tunggu — jangan terus guna lagu asal.
     if (CONFIG.youtubeId && !ytFailed) {
       ytWanted = true; playing = true; setUI(true);
       if (ytReady) ytPlay();
@@ -1221,12 +1229,7 @@ function initMusicEngine() {
       }, 12000);
       return;
     }
-    // fail audio (jika ada), kemudian muzik retro asal
-    if (CONFIG.musicSrc) {
-      audioEl = audioEl || Object.assign(new Audio(CONFIG.musicSrc), { loop: true, volume: 0.6 });
-      audioEl.play().then(() => { playing = true; setUI(true); }).catch(() => fallbackSynth());
-      return;
-    }
+    // 3) Muzik retro asal (synth)
     playing = true; setUI(true);
     startSynth().catch((err) => { console.error(err); playing = false; setUI(false); });
   }
