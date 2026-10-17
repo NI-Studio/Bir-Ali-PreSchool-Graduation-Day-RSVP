@@ -336,6 +336,8 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 
 @media (max-width: 960px) {
   .rsvp__layout { grid-template-columns: 1fr; }
+  .rsvp .h-display, .rsvp__intro { text-align: center; }
+  .rsvp__intro .lead--left { text-align: center; margin: 0 auto 1.5rem; }
   .cards { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
 }
 
@@ -904,7 +906,7 @@ main .btn--turq { background: var(--p-cyan); }
   </div>
 </section>
 
-<!-- ============ SECTION 6: RSVP ============ -->
+<!-- ============ SECTION 6: RSVP (GOOGLE FORM) ============ -->
 <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
   <div class="wrap rsvp__layout">
     <div class="rsvp__intro">
@@ -918,10 +920,10 @@ main .btn--turq { background: var(--p-cyan); }
         ATTENDANCE CONFIRMATION
       </h3>
       <p style="margin-bottom: 1.75rem; font-size: 1.05rem;">
-        Please click the button below to complete the attendance confirmation form.
+        Please click the button below to complete the attendance confirmation form (Google Form).
       </p>
       <a class="btn btn--magenta" href="ENTER_YOUR_GOOGLE_FORM_LINK_HERE" target="_blank" rel="noopener noreferrer">
-        FILL OUT RSVP FORM
+        FILL OUT RSVP FORM (GOOGLE FORM)
       </a>
     </div>
   </div>
@@ -970,7 +972,7 @@ const CONFIG = {
   rsvpDeadline: "",
   dressCode: "",
   notes: "",
-  youtubeId: "le0Y2Wf-ND0",   // lagu Kru - Mengerti (YouTube)
+  youtubeId: "-EKMf9hTnXE",   // lagu latar (YouTube)
   musicSrc: "",
   gallery: [
     { src: "p1.webp", caption: "90's Rock Kapak",    alt: "90's Rock Kapak", color: "#FF5BA8" },
