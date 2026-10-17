@@ -532,7 +532,7 @@ main .btn--turq { background: var(--p-cyan); }
 .polaroid::before { background: rgba(255,238,110,.9); }
 
 /* footer */
-.footer { background: var(--p-cyan); border-top: 4px solid var(--ink); padding-bottom: 8rem; }
+.footer { background: var(--p-cyan); border-top: 4px solid var(--ink); }
 .footer__thanks { font-family: var(--f-lilita); color: var(--p-yellow); text-shadow: 3px 3px 0 var(--ink); letter-spacing: .02em; }
 .footer__event { font-family: var(--f-pop); color: var(--ink); }
 .footer__cheers.brush { color: #fff; text-shadow: 3px 3px 0 var(--ink); }
@@ -549,46 +549,6 @@ main .btn--turq { background: var(--p-cyan); }
 }
 .dock__music.is-on { background: var(--p-yellow); color: var(--ink); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
 
-/* retro radio-cassette player */
-.player { display: flex; align-items: flex-end; padding-top: 14px; }
-.radio {
-  position: relative; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 8px;
-  width: min(290px, calc(100vw - 1.6rem)); padding: 7px 8px;
-  background: var(--p-orange); border: 3px solid var(--ink); border-radius: 14px; box-shadow: 3px 3px 0 var(--ink);
-}
-.radio__handle { position: absolute; left: 20%; right: 20%; top: -15px; height: 15px; background: var(--p-purple); border: 3px solid var(--ink); border-bottom: 0; border-radius: 10px 10px 0 0; }
-.speaker {
-  width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--ink);
-  background: linear-gradient(#5E5AA6 2px, transparent 2px) 0 0 / 7px 7px, linear-gradient(90deg, #5E5AA6 2px, transparent 2px) 0 0 / 7px 7px, #3D3A78;
-}
-.player.is-on .speaker { animation: speaker-pulse .55s ease-in-out infinite alternate; }
-.player.is-on .speaker:last-child { animation-delay: -.27s; }
-@keyframes speaker-pulse { to { transform: scale(1.08); } }
-.radio__center { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.radio__display { display: block; height: 20px; overflow: hidden; white-space: nowrap; background: #fff; border: 2px solid var(--ink); border-radius: 5px; line-height: 16px; }
-#music-label { display: block; overflow: hidden; text-overflow: ellipsis; padding: 0 6px; font-family: var(--f-pop); font-weight: 700; font-size: .7rem; letter-spacing: .05em; color: var(--ink); text-transform: uppercase; }
-.player.is-on #music-label { display: inline-block; overflow: visible; padding: 0 0 0 100%; animation: cassette-scroll var(--scroll, 9s) linear infinite; }
-@keyframes cassette-scroll { to { transform: translateX(-100%); } }
-.deck { display: flex; align-items: center; justify-content: space-between; gap: 6px; height: 28px; padding: 0 8px; background: var(--p-cyan); border: 2px solid var(--ink); border-radius: 7px; }
-.deck__tape { display: block; flex: 1; height: 3px; background: var(--ink); border-radius: 2px; }
-.reel { display: block; flex: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid var(--ink); position: relative; }
-.reel::before { content: ""; position: absolute; inset: 1px; border-radius: 50%; background: conic-gradient(var(--ink) 0 10%, transparent 0 33%, var(--ink) 0 43%, transparent 0 66%, var(--ink) 0 76%, transparent 0); }
-.player.is-on .reel { animation: reel-spin 1.4s linear infinite; }
-@keyframes reel-spin { to { transform: rotate(360deg); } }
-.keys { display: flex; align-items: center; justify-content: center; gap: 6px; }
-.key { display: flex; align-items: center; justify-content: center; flex: 1; height: 24px; background: #fff; color: var(--ink); border: 2px solid var(--ink); border-radius: 6px; box-shadow: 0 2px 0 var(--ink); opacity: .85; }
-.key svg { width: 15px; height: 15px; }
-.player .dock__music {
-  flex: 1.5; width: auto; height: 32px; min-height: 0; padding: 0; gap: 0; justify-content: center;
-  border-radius: 8px; background: var(--p-yellow); color: var(--ink); border: 3px solid var(--ink); box-shadow: 0 3px 0 var(--ink);
-  transition: transform .1s, box-shadow .1s, background .2s, color .2s;
-}
-.player .dock__music:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
-.player .dock__music.is-on { background: var(--hot); color: #fff; border-color: var(--ink); box-shadow: 0 1px 0 var(--ink); transform: translateY(2px); }
-.player .dock__music .ico { width: 20px; height: 20px; }
-.player .dock__music .ico--pause { display: none; }
-.player .dock__music.is-on .ico--play { display: none; }
-.player .dock__music.is-on .ico--pause { display: block; }
 .dock .btn  
 /* two sessions */
 .info--sessions .info__icon { display: block; margin: 0 0 .75rem; }
@@ -668,24 +628,6 @@ main .btn--turq { background: var(--p-cyan); }
   bottom: calc(var(--dock) + .15rem);
 }
 
-/* compact radio on phones — keeps the "scroll to start" cue clear */
-@media (max-width: 760px) {
-  .hero { --dock: calc(5rem + env(safe-area-inset-bottom)); }
-  .player { padding-top: 12px; }
-  .radio { width: 152px; grid-template-columns: 26px 1fr 26px; gap: 5px; padding: 5px 6px; border-radius: 11px; box-shadow: 2px 2px 0 var(--ink); }
-  .radio__handle { top: -12px; height: 12px; border-width: 2px; border-radius: 8px 8px 0 0; }
-  .speaker { width: 26px; height: 26px; border-width: 2px; background-size: 5px 5px, 5px 5px, auto; }
-  .radio__center { gap: 3px; }
-  .radio__display { height: 17px; line-height: 13px; border-width: 2px; }
-  #music-label { font-size: .58rem; padding: 0 4px; }
-  .deck { display: none; }
-  .keys { gap: 4px; }
-  .key { height: 22px; border-radius: 5px; }
-  .key svg { width: 12px; height: 12px; }
-  .player .dock__music { height: 26px; border-width: 2px; border-radius: 6px; }
-  .player .dock__music .ico { width: 16px; height: 16px; }
-  .footer { padding-bottom: 6.5rem; }
-}
 </style>
 </head>
 <body class="is-locked">
@@ -1018,25 +960,10 @@ main .btn--turq { background: var(--p-cyan); }
 <div id="yt-wrap" aria-hidden="true" style="position:fixed;right:0;bottom:0;width:200px;height:200px;opacity:.01;z-index:-1;pointer-events:none"><div id="yt-player"></div></div>
 
 <div class="dock" id="dock">
-  <div class="player" id="music-player">
-    <div class="radio">
-      <span class="radio__handle" aria-hidden="true"></span>
-      <span class="speaker" aria-hidden="true"></span>
-      <div class="radio__center">
-        <span class="radio__display"><span id="music-label">KRU - Fantasi</span></span>
-        <span class="deck" aria-hidden="true"><i class="reel"></i><i class="deck__tape"></i><i class="reel"></i></span>
-        <span class="keys">
-          <i class="key key--dec" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 6v12L3 12zM21 6v12l-8-6z" fill="currentColor"/></svg></i>
-          <button type="button" class="dock__music" id="music-btn" aria-pressed="false" aria-label="Mainkan muzik">
-            <svg class="ico ico--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg>
-            <svg class="ico ico--pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1.4" fill="currentColor"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.4" fill="currentColor"/></svg>
-          </button>
-          <i class="key key--dec" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 6v12l8-6zM3 6v12l8-6z" fill="currentColor"/></svg></i>
-        </span>
-      </div>
-      <span class="speaker" aria-hidden="true"></span>
-    </div>
-  </div>
+  <button type="button" class="dock__music" id="music-btn" aria-pressed="false" aria-label="Toggle background music">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="6.5" cy="18" r="2.8" fill="currentColor"/><circle cx="17.5" cy="16" r="2.8" fill="currentColor"/></svg>
+    <span id="music-label">MUSIC OFF</span>
+  </button>
 </div>
 
 <script>
@@ -1049,7 +976,6 @@ const CONFIG = {
   dressCode: "",
   notes: "",
   youtubeId: "-EKMf9hTnXE",   // lagu latar (YouTube)
-  songTitle: "KRU - Fantasi",   // tajuk yang dipaparkan; kosongkan untuk ambil tajuk terus dari YouTube
   musicSrc: "",
   gallery: [
     { src: "p1.webp", caption: "90's Rock Kapak",    alt: "90's Rock Kapak", color: "#FF5BA8" },
@@ -1188,18 +1114,7 @@ function initMusicEngine() {
   const setUI = (on) => {
     btn.setAttribute("aria-pressed", String(on));
     btn.classList.toggle("is-on", on);
-    const pl = $("#music-player"); if (pl) pl.classList.toggle("is-on", on);
-    btn.setAttribute("aria-label", on ? "Hentikan muzik" : "Mainkan muzik");
-  };
-  const setTitle = (t) => {
-    if (!t) return;
-    label.textContent = t;
-    (btn.closest(".player") || btn).style.setProperty("--scroll", Math.max(7, t.length * 0.32) + "s");
-  };
-  setTitle(CONFIG.songTitle || "Memuatkan lagu…");
-  const readTitle = () => {
-    if (CONFIG.songTitle) return;
-    try { const d = yt && yt.getVideoData && yt.getVideoData(); if (d && d.title) setTitle(d.title); } catch (e) {}
+    label.textContent = on ? "STOP MUSIC" : "PLAY MUSIC";
   };
 
   function tone(type, freq, t, dur, vol, slideTo) {
@@ -1267,9 +1182,8 @@ function initMusicEngine() {
           width: "200", height: "200", videoId: CONFIG.youtubeId, playerVars: pv,
           events: {
             // pemain siap SELEPAS pengguna tekan butang? terus mainkan (tak jatuh ke lagu asal)
-            onReady: () => { ytReady = true; readTitle(); if (ytWanted && playing) ytPlay(); },
+            onReady: () => { ytReady = true; if (ytWanted && playing) ytPlay(); },
             onStateChange: (e) => {
-              readTitle();
               if (!ytWanted || !playing) return;
               if (e.data === 1) clearTimeout(ytWatch);                 // sedang bermain
               else if (e.data === 0 || e.data === 5 || e.data === -1) ytPlay(); // tamat / cued / belum mula
@@ -1292,7 +1206,6 @@ function initMusicEngine() {
   function fallbackSynth() {
     ytWanted = false; clearTimeout(ytWatch);
     if (yt && yt.pauseVideo) { try { yt.pauseVideo(); } catch (e) {} }
-    setTitle("90's Retro Beat");
     startSynth().then(() => { playing = true; setUI(true); }).catch(() => {});
   }
 
