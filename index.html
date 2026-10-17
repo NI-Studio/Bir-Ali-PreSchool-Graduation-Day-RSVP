@@ -520,7 +520,7 @@ body::before, body::after { display: none; }
 .celebrate { background: var(--p-cyan); }
 .celebrate .brush--turq { color: #fff; }
 .details { background: var(--blush); }
-.details .h-display { color: var(--p-purple); text-shadow: 4px 4px 0 var(--p-yellow); }
+.details .h-display { color: var(--p-purple); text-shadow: none; filter: drop-shadow(4px 4px 0 var(--p-yellow)); }
 .rsvp { background: var(--hot); }
 .rsvp__sub { font-family: var(--f-lilita); color: var(--p-yellow); text-shadow: 2px 2px 0 var(--ink); letter-spacing: .03em; }
 .gallery { background: var(--p-purple); border-top: 4px solid var(--ink); }
@@ -592,7 +592,51 @@ main .btn--turq { background: var(--p-cyan); }
 }
 .dock__music.is-on { background: var(--p-yellow); color: var(--ink); border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
 .dock .btn.dock__rsvp { box-shadow: 3px 3px 0 var(--ink); }
-  </style>
+  
+/* two sessions */
+.info--sessions .info__icon { display: block; margin: 0 0 .75rem; }
+.sessions {
+  display: grid; gap: 1rem; margin-top: .25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+.session {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .55rem;
+  padding: 1.1rem 1rem 1.2rem; min-width: 0;
+  background: #FFF7FC; border: 2.5px solid var(--ink, #2E2A6B); border-radius: 18px;
+  box-shadow: 4px 4px 0 var(--p-cyan, #6ED6E0);
+}
+.session:nth-child(2) { box-shadow: 4px 4px 0 var(--p-yellow, #FFE66E); }
+.session__name {
+  margin: 0; font-family: var(--f-lilita); letter-spacing: .08em; font-size: .95rem; line-height: 1;
+  background: var(--p-yellow, #FFE66E); color: var(--ink, #2E2A6B);
+  padding: .4em .9em; border-radius: 999px; border: 2px solid var(--ink, #2E2A6B);
+}
+.session .info__main { font-size: clamp(1.4rem, 1rem + 2.2vw, 2.1rem); line-height: 1.1; margin: 0; }
+.session .info__sub { margin: 0; font-size: clamp(.9rem, .85rem + .25vw, 1.05rem); line-height: 1.4; max-width: 28ch; }
+@media (max-width: 480px) {
+  .session { padding: 1rem .85rem 1.1rem; border-radius: 16px; }
+}
+
+/* celebrate subtitle */
+.celebrate__sub {
+  display: table; margin: 0 auto 1.25rem; padding: .35em 1.1em;
+  font-family: var(--f-lilita); font-size: clamp(1rem, .9rem + 1vw, 1.5rem); letter-spacing: .04em; text-align: center;
+  background: #fff; color: var(--ink, #2E2A6B); border: 3px solid var(--ink, #2E2A6B); border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--hot, #FF3E9D);
+}
+
+/* card captions */
+.card { display: flex; flex-direction: column; align-items: center; }
+.card h3 { margin-bottom: .75rem; }
+.card__kicker { margin: 0 0 .25rem; font-family: var(--f-lilita); font-size: .85rem; letter-spacing: .1em; color: var(--hot, #FF3E9D); }
+.card__head { margin: 0 0 .5rem; font-family: var(--f-lilita); font-size: 1.05rem; letter-spacing: .03em; line-height: 1.2; color: var(--ink, #2E2A6B); }
+.card__text { margin: 0 0 1rem; font-size: .95rem; line-height: 1.5; color: var(--ink, #2E2A6B); }
+.card__tag {
+  margin-top: auto; margin-bottom: .6rem; padding: .3em .9em; border-radius: 999px;
+  font-family: var(--f-lilita); font-size: .8rem; letter-spacing: .08em;
+  background: var(--p-yellow, #FFE66E); color: var(--ink, #2E2A6B); border: 2px solid var(--ink, #2E2A6B);
+}
+</style>
 </head>
 <body class="is-locked">
 
@@ -602,7 +646,7 @@ main .btn--turq { background: var(--p-cyan); }
     <p class="welcome-card__sub">SPECIAL INVITATION</p>
     <h1 class="welcome-card__title" id="welcome-title">BIR ALI PRESCHOOL</h1>
     <p class="welcome-card__desc">You're cordially invited to celebrate our little graduates' big milestone!</p>
-    <button type="button" class="btn btn--yellow" id="open-btn" style="width:100%;">OPEN INVITATION</button>
+    <button type="button" class="btn btn--yellow" id="open-btn" style="width:100%;">PRESS PLAY</button>
   </div>
 </div>
 
@@ -782,23 +826,36 @@ main .btn--turq { background: var(--p-cyan); }
 <!-- ============ SECTION 4: GRADUATION CELEBRATION ============ -->
 <section class="celebrate" id="celebrate" aria-labelledby="celebrate-title">
   <div class="wrap">
-    <h2 id="celebrate-title" class="h-display h-display--magenta">SMALL STEPS, <span class="brush brush--turq">BIG DREAMS</span></h2>
-    <p class="lead">Celebrating little milestones, wonderful memories, and the exciting adventures that lie ahead.</p>
+    <h2 id="celebrate-title" class="h-display h-display--magenta">GROWING UP, <span class="brush brush--turq">THE 90s WAY</span></h2>
+    <p class="celebrate__sub">From Little Steps to Big Dreams</p>
+    <p class="lead">A little throwback to the days of big dreams, happy hearts and unforgettable childhood memories. Join us as we celebrate how far our little graduates have come and the exciting adventures that await them.</p>
 
     <div class="cards">
       <article class="card card--a reveal">
         <svg class="card__icon" aria-hidden="true"><use href="#i-star"/></svg>
         <h3>A JOURNEY OF GROWTH</h3>
+        <p class="card__kicker">01 — THE JOURNEY</p>
+        <p class="card__head">EVERY LITTLE STEP COUNTS</p>
+        <p class="card__text">From first hellos to new discoveries, every little step has brought us to this special moment.</p>
+        <span class="card__tag">LEVEL COMPLETED</span>
         <span class="sticker">STEP 1</span>
       </article>
       <article class="card card--b reveal">
         <svg class="card__icon" aria-hidden="true"><use href="#i-smiley"/></svg>
         <h3>MEMORIES TO CHERISH</h3>
+        <p class="card__kicker">02 — THE MEMORIES</p>
+        <p class="card__head">GOOD TIMES, GREAT MEMORIES</p>
+        <p class="card__text">Little laughs, lifelong friendships and moments we’ll rewind in our hearts forever.</p>
+        <span class="card__tag">SAVE TO MEMORY</span>
         <span class="sticker sticker--pink">KEEPSAKE</span>
       </article>
       <article class="card card--c reveal">
         <svg class="card__icon" aria-hidden="true"><use href="#i-cap"/></svg>
         <h3>A FUTURE FULL OF DREAMS</h3>
+        <p class="card__kicker">03 — WHAT’S NEXT?</p>
+        <p class="card__head">THE NEXT LEVEL STARTS HERE</p>
+        <p class="card__text">One chapter ends, another adventure begins. Our little graduates are ready to dream bigger and shine brighter.</p>
+        <span class="card__tag">PRESS START</span>
         <span class="sticker sticker--turq">NEXT UP</span>
       </article>
     </div>
@@ -818,11 +875,21 @@ main .btn--turq { background: var(--p-cyan); }
         <svg class="info__icon" aria-hidden="true"><use href="#i-cal"/></svg>
         <p class="info__main" data-config="dateText">21 November 2026</p>
       </div>
-      <div class="panel panel--neon panel--pink info reveal">
+      <div class="panel panel--neon panel--pink info info--wide info--sessions reveal">
         <span class="sticker sticker--pink">TIME</span>
         <svg class="info__icon" aria-hidden="true"><use href="#i-clock"/></svg>
-        <p class="info__main" data-config="timeText">8.00 AM - 12.00 PM</p>
-        <p class="info__sub">Starts <b data-config="startTime">8.00 AM</b> · Ends <b data-config="endTime">12.00 PM</b></p>
+        <div class="sessions">
+          <div class="session">
+            <p class="session__name">FIRST JAM</p>
+            <p class="info__main">8.00 AM - 12.00 PM</p>
+            <p class="info__sub">Bir Ali Elmina, Kota Warisan &amp; Serenia City</p>
+          </div>
+          <div class="session">
+            <p class="session__name">SECOND JAM</p>
+            <p class="info__main">2.00 PM - 6.00 PM</p>
+            <p class="info__sub">Bir Ali Bandar Sri Putera</p>
+          </div>
+        </div>
       </div>
       <div class="panel panel--neon panel--turq info info--wide reveal">
         <span class="sticker sticker--turq">VENUE</span>
@@ -906,9 +973,6 @@ main .btn--turq { background: var(--p-cyan); }
 const CONFIG = {
   eventDate: "2026-11-21T08:00:00+08:00",
   dateText: "21 November 2026",
-  timeText: "8.00 AM - 12.00 PM",
-  startTime: "8.00 AM",
-  endTime: "12.00 PM",
   venue: "Auditorium Permata Pintar",
   address: "UKM, Bangi",
   rsvpDeadline: "",
