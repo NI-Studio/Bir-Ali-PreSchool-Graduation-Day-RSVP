@@ -362,7 +362,7 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
     min-height: 100vh;
     min-height: 100svh;
     border-radius: 0; box-shadow: none;
-    background: linear-gradient(#FF5ECB 0, #FF4FC2 25%, #FF4FC2 75%, #FF3CB8 100%);
+    background: #FF4FC2;   /* sama dengan warna dasar artwork supaya tiada garisan sambungan */
   }
   .poster__bg { top: var(--art-top); bottom: auto; left: 50%; right: auto; width: var(--art-w); height: var(--art-h); transform: translateX(-50%); }
   .poster__content {
@@ -634,6 +634,15 @@ main .btn--turq { background: var(--p-cyan); }
 /* celebrate heading: "GROWING UP," on line 1, "THE 90s WAY" together on line 2 */
 #celebrate-title { text-wrap: balance; }
 #celebrate-title .brush { display: block; white-space: nowrap; }
+
+/* mobile hero: blend artwork edges into the flat pink + remove the white fade behind the music button */
+@media (max-width: 640px) {
+  .poster__bg {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 3.5%, #000 97.5%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 3.5%, #000 97.5%, transparent 100%);
+  }
+}
+.dock { background: none; }
 </style>
 </head>
 <body class="is-locked">
