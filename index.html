@@ -627,7 +627,7 @@ main .btn--turq { background: var(--p-cyan); }
 @media (max-width: 640px) {
   .hero__scroll {
     position: absolute; left: 50%; transform: translateX(-50%); margin: 0; z-index: 4;
-    top: calc(var(--art-top) + var(--art-h) + var(--cta-gap) - .35rem);
+    top: auto; bottom: calc(var(--dock) + .15rem);
   }
 }
 
@@ -635,13 +635,6 @@ main .btn--turq { background: var(--p-cyan); }
 #celebrate-title { text-wrap: balance; }
 #celebrate-title .brush { display: block; white-space: nowrap; }
 
-/* mobile hero: blend artwork edges into the flat pink + remove the white fade behind the music button */
-@media (max-width: 640px) {
-  .poster__bg {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 3.5%, #000 97.5%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0, #000 3.5%, #000 97.5%, transparent 100%);
-  }
-}
 .dock { background: none; }
 </style>
 </head>
@@ -698,10 +691,11 @@ main .btn--turq { background: var(--p-cyan); }
           </pattern>
         </defs>
 
-        <rect width="1080" height="1350" fill="#FF4FC2"/>
+        <rect id="art-bg" x="-4000" y="-1000" width="9080" height="9000" fill="#FF4FC2"/>
+
+        <g id="art-top">
         <circle cx="830" cy="290" r="430" fill="#FF5ECB"/>
         <path d="M430 480 C610 620 860 660 1080 650 L1080 760 C850 770 600 720 400 560 Z" fill="#FF3CB8" opacity=".55"/>
-        <path d="M0 1035 C130 950 340 945 475 1055 C520 1095 525 1200 525 1350 L0 1350 Z" fill="#FF3CB8"/>
 
         <!-- cassette -->
         <g class="pf"><g transform="translate(215 218) rotate(-12)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
@@ -745,6 +739,23 @@ main .btn--turq { background: var(--p-cyan); }
           </g>
         </g>
 
+        <!-- stars -->
+        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(960 115) rotate(15)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
+
+        <rect x="677" y="120" width="28" height="28" rx="10" fill="#FFE9F7"/>
+        <rect x="876" y="526" width="26" height="26" rx="9" fill="#FFE9F7"/>
+        <rect x="977" y="832" width="28" height="28" rx="10" fill="#FFE9F7"/>
+        </g>
+
+        <g id="art-mid">
+        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(860 892) rotate(-10) scale(.62)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="7" stroke-linejoin="round"/></g>
+        <g class="pf"><path d="M180 878 L268 850 L218 928 Z" fill="#AB8BFF" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
+        </g>
+
+        <g id="art-bottom">
+        <path d="M0 1035 C130 950 340 945 475 1055 C520 1095 525 1200 525 1350 L0 1350 Z" fill="#FF3CB8"/>
+        <rect x="0" y="1340" width="525" height="4000" fill="#FF3CB8"/>
+
         <!-- boombox -->
         <g class="pf"><g transform="translate(268 1188) rotate(-9)" stroke="#2E2A6B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
           <path d="M-95 -70 V-105 Q-95 -125 -75 -125 H75 Q95 -125 95 -105 V-70" fill="none" stroke-width="24"/>
@@ -772,20 +783,10 @@ main .btn--turq { background: var(--p-cyan); }
           <circle cx="98" cy="108" r="37" fill="#FF5BA8"/><circle cx="98" cy="108" r="13" fill="#fff" stroke-width="5"/>
         </g></g>
 
-        <!-- stars -->
-        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(960 115) rotate(15)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
-        <g class="pf"><path d="M0 -50 L14 -16 L50 -14 L22 8 L32 44 L0 24 L-32 44 L-22 8 L-50 -14 L-14 -16 Z" transform="translate(860 892) rotate(-10) scale(.62)" fill="#FFB04F" stroke="#2E2A6B" stroke-width="7" stroke-linejoin="round"/></g>
-
-        <!-- triangles -->
-        <g class="pf"><path d="M180 878 L268 850 L218 928 Z" fill="#AB8BFF" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
         <g class="pf"><path d="M515 1226 L570 1138 L607 1232 Z" fill="#6ED6E0" stroke="#2E2A6B" stroke-width="5" stroke-linejoin="round"/></g>
-
-        <!-- confetti dots -->
-        <rect x="677" y="120" width="28" height="28" rx="10" fill="#FFE9F7"/>
-        <rect x="876" y="526" width="26" height="26" rx="9" fill="#FFE9F7"/>
-        <rect x="977" y="832" width="28" height="28" rx="10" fill="#FFE9F7"/>
         <rect x="135" y="1014" width="28" height="28" rx="10" fill="#FFE9F7"/>
         <rect x="660" y="1092" width="24" height="24" rx="9" fill="#FFE9F7"/>
+        </g>
       </svg>
 
       <div class="poster__content">
@@ -1251,6 +1252,51 @@ function initMusicEngine() {
 
   initYT();
 
+
+
+  // fit poster artwork to the full first screen (mobile) — art fills the screen, scroll cue sits right under it
+  function fitHero() {
+    const svg = $(".poster__bg"), content = $(".poster__content"), poster = $(".poster"), cue = $(".hero__scroll");
+    const gTop = $("#art-top"), gMid = $("#art-mid"), gBottom = $("#art-bottom");
+    if (!svg || !content || !poster || !cue || !gTop || !gMid || !gBottom) return;
+    if (!window.matchMedia("(max-width: 640px)").matches) {
+      svg.removeAttribute("style"); content.removeAttribute("style");
+      svg.setAttribute("viewBox", "0 0 1080 1350"); svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+      gTop.removeAttribute("transform"); gMid.removeAttribute("transform"); gBottom.removeAttribute("transform");
+      return;
+    }
+    const W = poster.clientWidth, H = poster.clientHeight;
+    const availH = Math.max(240, cue.offsetTop - 4);          // area above the scroll cue
+    const artW = Math.min(W, availH * 0.8);                   // artwork is 4:5
+    const k = artW / 1080;                                    // px per art unit
+    const vbW = W / k, vbH = H / k, dx = (vbW - 1080) / 2;
+    const delta = Math.max(0, availH / k - 1350);             // spare height (art units)
+    const a = Math.min(delta, delta * 0.5 + 25), b = delta;   // text group centred between top and the bottom cluster
+    svg.setAttribute("viewBox", (-dx) + " 0 " + vbW + " " + vbH);
+    svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
+    svg.style.cssText = "left:0;right:auto;top:0;width:" + W + "px;height:" + H + "px;transform:none;-webkit-mask-image:none;mask-image:none";
+    gTop.setAttribute("transform", "translate(0 " + a + ")");
+    gBottom.setAttribute("transform", "translate(0 " + b + ")");
+    const place = (shift) => {
+      gMid.setAttribute("transform", "translate(0 " + (a + shift / k) + ")");
+      content.style.cssText = "left:" + ((W - artW) / 2) + "px;right:auto;transform:none;top:" + (a * k + shift) + "px;width:" + artW + "px;height:" + (1350 * k) + "px;padding-top:" + (artW * 0.125) + "px";
+    };
+    place(0);
+    // centre the text block (BIR ALI … UKM, BANGI) vertically in the area above the scroll cue
+    const logo = $(".p-logo"), venue = $(".p-venue");
+    if (logo && venue) {
+      const pr = poster.getBoundingClientRect();
+      const tTop = logo.getBoundingClientRect().top - pr.top, tBot = venue.getBoundingClientRect().bottom - pr.top;
+      const maxShift = Math.max(0, (1040 + b) * k - tBot - 10);   // never touch the radio / skate
+      const shift = Math.min(maxShift, Math.max(0, availH / 2 - (tTop + tBot) / 2 + 10));   // +10px: a touch lower
+      place(shift);
+    }
+  }
+  fitHero();
+  window.addEventListener("resize", fitHero);
+  window.addEventListener("orientationchange", fitHero);
+  window.addEventListener("load", fitHero);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
 
   // gentle "scroll down" nudge so parents notice there is more below
   function nudgeScroll() {
