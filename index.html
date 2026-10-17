@@ -341,7 +341,6 @@ section { position: relative; padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hid
 }
 
 @media (max-width: 640px) {
-  body { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
   section { padding: 2.5rem 0; }
   .wrap { width: calc(100% - 1.5rem); }
 
@@ -474,6 +473,7 @@ body::before, body::after { display: none; }
 
 /* section backgrounds */
 .countdown { background: var(--p-yellow); border-block: 4px solid var(--ink); }
+#countdown-title { color: var(--hot); -webkit-text-stroke: 0; paint-order: normal; text-shadow: 3px 3px 0 var(--ink); letter-spacing: .03em; }
 .celebrate { background: var(--p-cyan); }
 .celebrate .brush--turq { color: #fff; }
 .details { background: var(--blush); }
@@ -532,7 +532,7 @@ main .btn--turq { background: var(--p-cyan); }
 .polaroid::before { background: rgba(255,238,110,.9); }
 
 /* footer */
-.footer { background: #FF3CB8; }
+.footer { background: var(--p-cyan); border-top: 4px solid var(--ink); }
 .footer__thanks { font-family: var(--f-lilita); color: var(--p-yellow); text-shadow: 3px 3px 0 var(--ink); letter-spacing: .02em; }
 .footer__event { font-family: var(--f-pop); color: var(--ink); }
 .footer__cheers.brush { color: #fff; text-shadow: 3px 3px 0 var(--ink); }
@@ -912,7 +912,17 @@ main .btn--turq { background: var(--p-cyan); }
   </div>
 </section>
 
-<!-- ============ SECTION 6: RSVP ============ -->
+<!-- ============ SECTION 6: PHOTO GALLERY (90s Parent Style Guide) ============ -->
+<section class="gallery" id="gallery" aria-labelledby="gallery-title">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <h2 id="gallery-title" class="h-display h-display--yellow">90’s <span class="brush">Parent Style Guide</span></h2>
+    <div class="polaroids" id="polaroids"></div>
+  </div>
+</section>
+
+<!-- ============ SECTION 7: RSVP ============ -->
 <section class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
   <div class="wrap rsvp__layout">
     <div class="rsvp__intro">
@@ -932,16 +942,6 @@ main .btn--turq { background: var(--p-cyan); }
         FILL OUT RSVP FORM
       </a>
     </div>
-  </div>
-</section>
-
-<!-- ============ SECTION 7: PHOTO GALLERY ============ -->
-<section class="gallery" id="gallery" aria-labelledby="gallery-title">
-  <div class="grid-bg" aria-hidden="true"></div>
-
-  <div class="wrap">
-    <h2 id="gallery-title" class="h-display h-display--yellow">90’s <span class="brush">Parent Style Guide</span></h2>
-    <div class="polaroids" id="polaroids"></div>
   </div>
 </section>
 
